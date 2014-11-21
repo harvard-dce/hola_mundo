@@ -1,4 +1,11 @@
-require "webmock/rspec"
+require File.expand_path('../../config/environment', __FILE__)
+
+require 'database_cleaner'
+require 'rspec/rails'
+require 'shoulda/matchers'
+require 'webmock/rspec'
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |file| require file }
 
 # http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
