@@ -70,6 +70,7 @@ GEM
       activerecord (>= 3.0, < 5.0)
       delayed_job (>= 3.0, < 4.1)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     dotenv (1.0.2)
     dotenv-rails (1.0.2)
       dotenv (= 1.0.2)
@@ -185,10 +186,12 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    simplecov (0.9.1)
+      docile (~> 1.1.0)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     slop (3.6.0)
-    spring (1.2.0)
-    spring-commands-rspec (1.0.4)
-      spring (>= 0.9.1)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -259,8 +262,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.3)
   shoulda-matchers
   simple_form
-  spring
-  spring-commands-rspec
+  simplecov
   timecop
   title
   uglifier

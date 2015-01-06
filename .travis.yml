@@ -8,9 +8,6 @@ before_script:
   
   - psql -c 'create database "hola_mundo_test";' -U postgres
   
-branches:
-  only:
-    - master
 cache:
   - bundler
 language:

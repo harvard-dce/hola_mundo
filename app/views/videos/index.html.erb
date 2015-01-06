@@ -1,0 +1,16 @@
+<%= link_to(t('videos.new'), new_video_path) %> <br />
+
+<div id="player">
+</div>
+
+<% if @my_video.present? %>
+  <%= content_tag(
+    'span', '',
+    id: dom_id(@my_video),
+    class: dom_class(@my_video),
+    data: { youtube_id: @my_video.youtube_id }
+  )
+  %>
+<% else %>
+  <h3><%= t('videos.none_uploaded_yet') %></h3>
+<% end %>

@@ -23,11 +23,6 @@ gem "uglifier"
 gem "unicorn"
 gem "dce_lti", "~> 0.3.0"
 
-group :development do
-  gem "spring"
-  gem "spring-commands-rspec"
-end
-
 group :development, :test do
   gem "awesome_print"
   gem "byebug"
@@ -44,6 +39,7 @@ group :test do
   gem "shoulda-matchers", require: false
   gem "timecop"
   gem "webmock"
+  gem "simplecov", require: false
 end
 
 group :staging, :production do

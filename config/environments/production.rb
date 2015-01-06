@@ -1,4 +1,3 @@
-require Rails.root.join("config/smtp")
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -58,13 +57,13 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = ENV.fetch("ASSET_HOST")
+  # config.action_controller.asset_host = ENV.fetch("ASSET_HOST")
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = SMTP_SETTINGS
+  # config.action_mailer.smtp_settings = SMTP_SETTINGS
 
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -83,5 +82,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = { host: 'hola_mundo.com' }
+  config.action_mailer.default_url_options = { host: ENV.fetch('DEFAULT_HOST', 'hola_mundo.com') }
 end

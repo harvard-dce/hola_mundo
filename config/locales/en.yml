@@ -17,3 +17,7 @@ en:
 
   titles:
     application: Hola mundo
+  videos:
+    none_uploaded_yet: You've not uploaded a video yet! Click "Upload a video" above
+    uploading_in_progress: Your video is being uploaded and processed - it will appear below when it's ready in a few moments. Please don't close this window.
+    new: Upload a video
