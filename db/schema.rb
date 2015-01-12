@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150108154146) do
+ActiveRecord::Schema.define(version: 20150114182505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "courses", force: true do |t|
+    t.string  "title"
+    t.string  "resource_link_id"
+    t.boolean "review_required",  default: true
+  end
+
+  add_index "courses", ["resource_link_id"], name: "index_courses_on_resource_link_id", unique: true, using: :btree
 
   create_table "dce_lti_nonces", force: true do |t|
     t.string   "nonce"
@@ -56,10 +64,11 @@ ActiveRecord::Schema.define(version: 20150108154146) do
   create_table "videos", force: true do |t|
     t.integer "dce_lti_user_id"
     t.string  "youtube_id"
-    t.string  "resource_link_id"
+    t.integer "course_id"
+    t.boolean "approved",        default: false
   end
 
+  add_index "videos", ["course_id", "dce_lti_user_id"], name: "index_videos_on_course_id_and_dce_lti_user_id", unique: true, using: :btree
   add_index "videos", ["dce_lti_user_id"], name: "index_videos_on_dce_lti_user_id", using: :btree
-  add_index "videos", ["resource_link_id"], name: "index_videos_on_resource_link_id", using: :btree
 
 end

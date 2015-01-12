@@ -3,4 +3,25 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_filter :authenticate_via_lti
+  helper_method :current_user, :course
+
+  def initialize_course
+    @course = Course.find_or_initialize_by(
+      resource_link_id: session[:resource_link_id]
+    )
+    if @course.new_record?
+      @course.title = session[:context_title]
+      @course.save!
+    end
+  end
+
+  def course
+    @course
+  end
+
+  def only_instructors
+    if ! current_user.has_role?('instructor')
+      redirect_to root_path
+    end
+  end
 end

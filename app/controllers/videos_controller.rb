@@ -1,14 +1,16 @@
 class VideosController < ApplicationController
+  before_filter :initialize_course
+
   def index
     @my_video = find_my_video
   end
 
   def create
     begin
-      UserVideoCreator.create(
+      CourseUserVideoCreator.create(
         youtube_id: video_params[:youtube_id],
         dce_lti_user_id: current_user.id,
-        resource_link_id: session[:resource_link_id]
+        course_id: course.id
       )
       head :created
     rescue => e
@@ -20,7 +22,7 @@ class VideosController < ApplicationController
   private
 
   def find_my_video
-    Video.by_resource_link_id(session[:resource_link_id]).find_by(
+    Video.by_course_id(course.id).find_by(
       dce_lti_user_id: current_user.id
     )
   end

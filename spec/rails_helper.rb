@@ -6,10 +6,13 @@ require File.expand_path("../../config/environment", __FILE__)
 
 require "rspec/rails"
 require "shoulda/matchers"
+require 'rack_session_access/capybara'
+require 'webmock/rspec'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |file| require file }
 
 RSpec.configure do |config|
+  WebMock.disable_net_connect!(allow_localhost: true)
   config.expect_with :rspec do |expectations|
     expectations.syntax = :expect
   end

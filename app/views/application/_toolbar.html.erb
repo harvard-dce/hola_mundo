@@ -1,0 +1,8 @@
+<nav>
+  <ul>
+    <% if current_user.has_role?('instructor') %>
+      <% link_text = course.review_required? ? t('courses.unrequire_review_for_course') : t('courses.require_review_for_course') %>
+      <li><%= link_to(link_text, review_toggle_courses_path, method: :post ) %></li>
+    <% end %>
+  </ul>
+</nav>

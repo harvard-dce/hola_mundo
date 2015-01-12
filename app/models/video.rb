@@ -1,18 +1,32 @@
 class Video < ActiveRecord::Base
-  belongs_to :dce_lti_user
+  before_save :ensure_review_is_required
+
+  belongs_to :dce_lti_user, class: DceLti::User
+  belongs_to :course
 
   validates :dce_lti_user_id,
-    presence: true
+    presence: true,
+    uniqueness: { scope: :course_id }
 
   validates :youtube_id,
     presence: true,
     length: { maximum: 20 }
 
-  validates :resource_link_id,
-    presence: true,
-    length: { maximum: 255 }
+  validates :course_id,
+    presence: true
 
-  def self.by_resource_link_id(resource_link_id)
-    where(resource_link_id: resource_link_id)
+  def self.by_course_id(course_id)
+    where(course_id: course_id)
+  end
+
+  private
+
+  def ensure_review_is_required
+    if self.course.review_required
+      self.approved = false
+    else
+      self.approved = true
+    end
+    true
   end
 end

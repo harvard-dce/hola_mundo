@@ -21,3 +21,7 @@ en:
     none_uploaded_yet: You've not uploaded a video yet! Click "Upload a video" above
     uploading_in_progress: Your video is being uploaded and processed - it will appear below when it's ready in a few moments. Please don't close this window.
     new: Upload a video
+  courses:
+    require_review_for_course: Require instructor approval for video uploads
+    unrequire_review_for_course: Allow videos to be posted without instructor approval
+    toggled: Updated the approval setting!
