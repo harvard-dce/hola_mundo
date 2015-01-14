@@ -7,8 +7,10 @@ feature 'An instructor manages a course' do
   scenario 'and can set a course to allow unreviewed videos' do
     visit '/'
 
-    click_on t('courses.unrequire_review_for_course')
+    click_on t('courses.settings')
+    uncheck('Review required')
+    click_on('Update Course')
 
-    expect(page).to have_link(t('courses.require_review_for_course'))
+    expect(page).to have_no_checked_field('Review required')
   end
 end

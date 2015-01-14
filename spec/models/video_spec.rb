@@ -15,6 +15,13 @@ describe Video do
 
   it { should have_db_index([:course_id, :dce_lti_user_id]).unique(true) }
 
+  it 'delegates review_required? to course' do
+    course = build(:course, review_required: true)
+    video = build(:video, course: course)
+
+    expect(video.review_required?).to eq course.review_required
+  end
+
   context '#approved' do
     it 'is set to false after creation if a course requires review' do
       course = create(:course, review_required: true)
@@ -30,22 +37,6 @@ describe Video do
       video = build(:video, course: course)
 
       video.save!
-
-      expect(video.approved).to be true
-    end
-
-    it 'is reset if the course review status changes on next save' do
-      course = create(:course, review_required: true)
-
-      video = create(:video, course: course)
-
-      expect(video.approved).to be false
-
-      course.review_required = false
-      course.save
-
-      video.reload
-      video.save
 
       expect(video.approved).to be true
     end

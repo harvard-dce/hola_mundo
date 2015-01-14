@@ -1,5 +1,14 @@
-<div id="upload_widget"></div>
-<div id="uploading_in_progress" style="display:none;">
-  <h3><%= t('videos.uploading_in_progress') %></h3>
+<div class="full-width">
+  <div class="upload-widget">
+    <div id="upload_widget" data-course-title="<%= course.title %>"></div>
+    <% if course.review_required? %>
+      <p><%= t('videos.review_required') %></p>
+    <% end %>
+    <div id="uploading_in_progress" style="display:none;">
+      <p><%= t('videos.uploading_in_progress') %></p>
+    </div>
+  </div>
+  <div class="upload-player">
+    <div id="player"></div>
+  </div>
 </div>
-<div id="player"></div>

@@ -5,3 +5,19 @@
 @import 'base/grid-settings';
 @import 'neat';
 @import 'base/base';
+@import 'flashes';
+@import 'toolbar';
+@import 'dropdown';
+@import 'badges';
+@import 'layout';
+@import 'videos_new';
+@import 'videos_index';
+
+iframe{
+  margin: 0em;
+  padding: 0em;
+}
+
+.clearfix {
+  @include clearfix();
+}

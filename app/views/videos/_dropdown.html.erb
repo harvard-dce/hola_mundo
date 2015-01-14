@@ -1,0 +1,15 @@
+<div class="dropdown">
+  <div class="dropdown-container">
+    <p class="dropdown-button"><%= image_tag('gear.png', class: 'edit_video_menu') %></p>
+    <ul class="dropdown-menu dropdown-select">
+      <li><%= link_to(t('videos.destroy'), video_path(video), method: :delete, data: { confirm: t('videos.confirm_destroy') }) %></li>
+      <% if video.review_required? %>
+        <% if video.approved? %>
+          <li><%= link_to(t('videos.disapprove'), video_path(video, approved: false), method: :put) %></li>
+        <% else %>
+          <li><%= link_to(t('videos.approve'), video_path(video, approved: true), method: :put) %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

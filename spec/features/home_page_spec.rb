@@ -7,6 +7,14 @@ feature 'A user visits the homepage' do
   scenario 'and sees that they can upload a video' do
     visit '/'
 
-    expect(page).to have_link('Upload a video')
+    expect(page).to have_link(t('videos.new'))
+  end
+end
+
+feature 'A anonymous user visits the homepage' do
+  scenario 'and sees a notice about an invalid session' do
+    visit '/'
+
+    expect(page).to have_content(/invalid session/i)
   end
 end

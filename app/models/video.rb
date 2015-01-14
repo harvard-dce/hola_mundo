@@ -1,5 +1,5 @@
 class Video < ActiveRecord::Base
-  before_save :ensure_review_is_required
+  before_create :ensure_review_is_required
 
   belongs_to :dce_lti_user, class: DceLti::User
   belongs_to :course
@@ -14,6 +14,8 @@ class Video < ActiveRecord::Base
 
   validates :course_id,
     presence: true
+
+  delegate :review_required?, to: :course
 
   def self.by_course_id(course_id)
     where(course_id: course_id)

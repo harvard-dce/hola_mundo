@@ -1,0 +1,42 @@
+.video {
+  @include span-columns(4);
+  @include omega(3n);
+  .wrapper {
+    margin: 1em 1em 2em 1em;
+    padding: 1em;
+    background-color: #e4e4e4;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px #bbb;
+
+    .youtube_container {
+      background: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      width: 280px;
+      height: 157.5px;
+    }
+  }
+  .metadata{
+    padding-top: 0.4em;
+    float: left;
+    font-size: .75em;
+
+    .date {
+      margin-left: .5em;
+      color: #aaa;
+    }
+  }
+  .controls{
+    float: right;
+    img.edit_video_menu {
+      height: 24px;
+      width: 24px;
+      vertical-align: middle;
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

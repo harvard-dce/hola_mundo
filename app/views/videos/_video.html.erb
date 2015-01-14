@@ -1,0 +1,28 @@
+<div class="<%= dom_class(video) %>" id="<%= dom_id(video) %>">
+  <div class="wrapper">
+    <div
+      class="youtube_container"
+      id="youtube_container_<%= video.id %>"
+      data-youtube-id="<%= video.youtube_id %>"
+      style="background-image: url('//img.youtube.com/vi/<%= video.youtube_id %>/mqdefault.jpg')"
+      >
+    </div>
+    <div class="metadata">
+      <%= video.dce_lti_user.lis_person_name_full %>
+      <span class="date">
+        <%= l video.created_at, format: :short_date_time %>
+      </span>
+    </div>
+    <div class="controls">
+      <% if video.review_required? %>
+        <span class="approved badge <%= video.approved %>">
+          <%= t("videos.approval_state_#{video.approved}") %>
+        </span>
+      <% end %>
+      <% if current_user.has_role?('instructor') %>
+        <%= render 'dropdown', video: video %>
+      <% end %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>

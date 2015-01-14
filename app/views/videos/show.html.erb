@@ -1,0 +1,19 @@
+<div class="full-width">
+
+  <% if @my_video.present? %>
+    <h3><%= t('videos.your_current_video') %></h3>
+    <div id="my_video_player">
+    </div>
+    <p><%= t('videos.resubmit') %></p>
+    <%= content_tag(
+      'span', '',
+      id: dom_id(@my_video),
+      class: dom_class(@my_video),
+      data: { youtube_id: @my_video.youtube_id }
+    )
+  %>
+  <% else %>
+    <h3><%= t('videos.none_uploaded_yet') %></h3>
+  <% end %>
+
+</div>

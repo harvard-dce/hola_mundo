@@ -5,6 +5,21 @@ describe VideosController do
   end
 
   context 'unauthenticated visits' do
+    context '#update' do
+      it 'are redirected to the invalid session path' do
+        put :update, id: 10
+
+        expect(response).to redirect_to(DceLti::Engine.routes.url_helpers.invalid_sessions_path)
+      end
+    end
+
+    context '#destroy' do
+      it 'are redirected to the invalid session path' do
+        delete :destroy,id: 10
+
+        expect(response).to redirect_to(DceLti::Engine.routes.url_helpers.invalid_sessions_path)
+      end
+    end
     context '#index' do
       it 'are redirected to the invalid session path' do
         get :index
@@ -56,7 +71,9 @@ describe VideosController do
 
       expect(response).to be_successful
     end
+  end
 
+  context '#show' do
     it 'finds videos for a visitor' do
       course = build(:course, id: 10000, resource_link_id: 'sdf')
       allow(Course).to receive(:find_or_initialize_by).and_return(course)
@@ -68,13 +85,58 @@ describe VideosController do
         resource_link_scoped_videos_double
       )
 
-      get :index
+      get :show
 
       expect(Video).to have_received(:by_course_id).with(
         course.id
       )
       expect(resource_link_scoped_videos_double).to have_received(:find_by).
         with(dce_lti_user_id: user.id)
+    end
+  end
+
+  context '#update' do
+    it 'cannot be accessed by students' do
+      stub_user
+      video = build(:video, id: 100)
+      allow(video).to receive(:save!)
+
+      put :update, id: video.id
+
+      expect(video).not_to have_received(:save!)
+      expect(controller).to redirect_to(root_path)
+    end
+
+    it 'can update a video' do
+      user = stub_user
+      user.roles = ['instructor']
+      video = create(:video, approved: false)
+      course = video.course
+      find_double = double(:find, find: video)
+
+      allow(course).to receive(:videos).and_return(find_double)
+      allow(controller).to receive(:course).and_return(course)
+
+      put :update, id: video.id, approved: true
+
+      expect(video).to be_approved
+      expect(course).to have_received(:videos)
+      expect(find_double).to have_received(:find).with(video.id.to_s)
+      expect(flash).to include(['notice', t('videos.updated')])
+      expect(response).to redirect_to(root_path)
+    end
+
+    it 'redirects to the home page if updating fails' do
+      user = stub_user
+      user.roles = ['instructor']
+
+      video = build(:video, id: 100)
+      allow(video).to receive(:save!).and_raise
+
+      put :update, id: video.id, approved: true
+
+      expect(flash).to include(['error', t('videos.save_failed')])
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -106,6 +168,50 @@ describe VideosController do
       post :create, { video: {  } }
 
       expect(response.status).to eq 422
+    end
+  end
+
+  context '#destroy' do
+    context 'accessed by instructors' do
+      it 'can destroy a video' do
+        user = stub_user
+        user.roles = ['instructor']
+        video = create(:video)
+        allow(controller).to receive(:course).and_return(video.course)
+
+        delete :destroy, id: video.id
+
+        expect(response).to redirect_to(root_path)
+        expect{Video.find(video.id)}.to raise_error
+        expect(flash).to include(['notice', t('videos.destroyed')])
+      end
+    end
+
+    context 'accessed by video owner' do
+      it 'can destroy a video' do
+        user = create(:dce_lti_user)
+        allow(controller).to receive(:current_user).and_return(user)
+        video = create(:video, dce_lti_user: user)
+
+        allow(controller).to receive(:course).and_return(video.course)
+        allow(video).to receive(:destroy)
+
+        delete :destroy, id: video.id
+
+        expect(response).to redirect_to(root_path)
+        expect{Video.find(video.id)}.to raise_error
+        expect(flash).to include(['notice', t('videos.destroyed')])
+      end
+    end
+
+    context 'accessed by non-instructors and non-video owner' do
+      it 'redirects to the root path' do
+        user = stub_user
+
+        delete :destroy, id: 10
+
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 end

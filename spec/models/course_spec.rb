@@ -11,16 +11,4 @@ describe Course do
       expect(described_class.new.review_required).to be true
     end
   end
-
-  context '#toggle_review_required' do
-    it 'flips "review_required" between states' do
-      course = build(:course, review_required: false)
-      course.toggle_review_required
-
-      expect(course.review_required).to eq true
-
-      course.toggle_review_required
-      expect(course.review_required).to eq false
-    end
-  end
 end

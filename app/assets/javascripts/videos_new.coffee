@@ -1,8 +1,7 @@
 $ ->
   widget = ''
-  player = ''
 
-  onUploadSuccess = (event) ->
+  postYoutubeId = (event) ->
     $('#uploading_in_progress').show()
     $.ajax(
       type: 'POST',
@@ -18,25 +17,20 @@ $ ->
         console.log('errorThrown:', errorThrown)
     )
 
-  onProcessingComplete = (event) ->
+  showVideoPreview = (event) ->
     $('#uploading_in_progress').hide()
-    player = new YT.Player(
+    new YT.Player(
       'player',
-      height: 390,
-      width: 640,
+      height: 300,
+      width: 480,
       videoId: event.data.videoId,
       events: {}
     )
 
-  if $('.videos-index span.video').length > 0
-    window.onYouTubeIframeAPIReady = ->
-      player = new YT.Player(
-        'player',
-        height: 390,
-        width: 640,
-        videoId: $('span.video').data('youtube-id')
-        events: {}
-      )
+   setVideoMetadata = (event) ->
+     titleBase = $('#upload_widget').data('course-title')
+     widget.setVideoPrivacy('unlisted')
+     widget.setVideoTitle("#{titleBase} video upload")
 
   if $('.videos-new').length > 0
     window.onYouTubeIframeAPIReady = ->
@@ -44,6 +38,7 @@ $ ->
         'upload_widget',
         width: 500,
         events:
-          onUploadSuccess: onUploadSuccess
-          onProcessingComplete: onProcessingComplete
+          onUploadSuccess: postYoutubeId
+          onProcessingComplete: showVideoPreview
+          onApiReady: setVideoMetadata
       )

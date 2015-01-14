@@ -11,15 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114182505) do
+ActiveRecord::Schema.define(version: 20150116200021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "courses", force: true do |t|
-    t.string  "title"
-    t.string  "resource_link_id"
-    t.boolean "review_required",  default: true
+    t.string   "title"
+    t.string   "resource_link_id"
+    t.boolean  "review_required",  default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "courses", ["resource_link_id"], name: "index_courses_on_resource_link_id", unique: true, using: :btree
@@ -62,10 +64,12 @@ ActiveRecord::Schema.define(version: 20150114182505) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "videos", force: true do |t|
-    t.integer "dce_lti_user_id"
-    t.string  "youtube_id"
-    t.integer "course_id"
-    t.boolean "approved",        default: false
+    t.integer  "dce_lti_user_id"
+    t.string   "youtube_id"
+    t.integer  "course_id"
+    t.boolean  "approved",        default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "videos", ["course_id", "dce_lti_user_id"], name: "index_videos_on_course_id_and_dce_lti_user_id", unique: true, using: :btree

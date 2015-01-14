@@ -12,11 +12,13 @@ FactoryGirl.define do
   factory :course do
     sequence(:resource_link_id) { |n| "resource_link_id_#{n}" }
     title 'Course title'
+    created_at { Time.now }
   end
 
   factory :video do
     sequence(:youtube_id) { |n| "youtube-id-#{n}" }
     dce_lti_user
     course
+    created_at { Time.now }
   end
 end

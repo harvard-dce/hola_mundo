@@ -1,0 +1,7 @@
+#body-wrapper{
+  @include outer-container;
+}
+
+.full-width{
+  @include span-columns(12);
+}

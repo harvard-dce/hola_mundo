@@ -1,8 +1,27 @@
-<nav>
-  <ul>
-    <% if current_user.has_role?('instructor') %>
-      <% link_text = course.review_required? ? t('courses.unrequire_review_for_course') : t('courses.require_review_for_course') %>
-      <li><%= link_to(link_text, review_toggle_courses_path, method: :post ) %></li>
-    <% end %>
-  </ul>
-</nav>
+<!-- h/t refills.bourbon.io -->
+<header class="centered-navigation" role="banner">
+  <div class="centered-navigation-wrapper">
+    <a href="javascript:void(0)" class="mobile-logo js-centered-navigation-mobile-menu-toggle">
+      <img src="<%= image_path('hamburger_menu.png') %>" alt="Logo image">
+    </a>
+    <a href="javascript:void(0)" id="js-centered-navigation-mobile-menu" class="centered-navigation-mobile-menu js-centered-navigation-mobile-menu-toggle">MENU</a>
+    <nav role="navigation">
+      <ul id="js-centered-navigation-menu" class="centered-navigation-menu show">
+        <% if current_user && current_user.has_role?('instructor') %>
+          <li class="nav-link">
+            <%= link_to(t('courses.settings'), edit_course_path) %>
+          </li>
+        <% end %>
+        <li class="nav-link">
+          <%= link_to(t('titles.homepage'), root_path) %>
+        </li>
+        <li class="nav-link">
+          <%= link_to(t('videos.view_my_video'), my_video_path) %>
+        </li>
+        <li class="nav-link">
+          <%= link_to(t('videos.new'), new_video_path) %>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
