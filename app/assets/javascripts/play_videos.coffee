@@ -1,5 +1,5 @@
 $ ->
-  if $('.videos-index .video').length > 0
+  if $('.videos-index .video, .videos-show .video').length > 0
     window.onYouTubeIframeAPIReady = ->
       $('.youtube_container').click( (e) ->
         e.preventDefault()

@@ -6,6 +6,7 @@
       data-youtube-id="<%= video.youtube_id %>"
       style="background-image: url('//img.youtube.com/vi/<%= video.youtube_id %>/mqdefault.jpg')"
       >
+      <%= image_tag('play_button.png', class: 'play_button') %>
     </div>
     <div class="metadata">
       <%= video.dce_lti_user.lis_person_name_full %>

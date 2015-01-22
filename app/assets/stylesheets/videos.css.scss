@@ -15,6 +15,20 @@
       background-size: cover;
       width: 280px;
       height: 157.5px;
+      text-align: center;
+      cursor: pointer;
+
+      &:before {
+        content: '';
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .play_button {
+        display: inline-block;
+        vertical-align: middle;
+        width: 60px;
+      }
     }
   }
   .metadata{
@@ -36,6 +50,26 @@
       opacity: 0.5;
       &:hover {
         opacity: 1;
+      }
+    }
+  }
+}
+
+.videos-show {
+  .video {
+    width: 680px;
+    @include span-columns(12);
+    @include omega();
+
+    .wrapper {
+      width: 676px;
+      .youtube_container {
+        width: 640px;
+        height: 390px;
+
+        .play_button {
+          width: auto;
+        }
       }
     }
   }

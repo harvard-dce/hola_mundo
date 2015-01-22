@@ -17,6 +17,10 @@ class Video < ActiveRecord::Base
 
   delegate :review_required?, to: :course
 
+  def self.approved
+    where(approved: true)
+  end
+
   def self.by_course_id(course_id)
     where(course_id: course_id)
   end

@@ -24,9 +24,8 @@ describe CoursesController do
 
     context 'instructors' do
       it 'can update a course' do
-        stub_user do |user|
-          user.roles = ['instructor']
-        end
+        user = stub_user
+        user.roles = ['instructor']
         course = double(:course).as_null_object
 
         allow(Course).to receive(:find_or_initialize_by).and_return(course)

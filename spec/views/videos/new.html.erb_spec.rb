@@ -25,4 +25,13 @@ describe 'videos/new.html.erb' do
 
     expect(rendered).not_to have_content(t('videos.review_required'))
   end
+
+  it "gives notice when you've already uploaded a video" do
+    assign(:my_video, build(:video))
+    allow(view).to receive(:course).and_return(build(:course))
+
+    render
+
+    expect(rendered).to have_content(t('videos.already_uploaded'))
+  end
 end

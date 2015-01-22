@@ -5,3 +5,11 @@
 .full-width{
   @include span-columns(12);
 }
+
+.upload-widget{
+  @include span-columns(6);
+}
+.upload-player{
+  @include span-columns(6);
+  @include omega();
+}

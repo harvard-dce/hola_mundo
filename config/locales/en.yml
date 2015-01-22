@@ -22,6 +22,7 @@ en:
     homepage: Videos
 
   videos:
+    already_uploaded: You've already uploaded a video - you can see it under "My video", or re-record one here.
     approval_state_false: under review
     approval_state_true: approved
     approve: Approve video
@@ -30,9 +31,11 @@ en:
     destroyed: Removed that video.
     disapprove: Not approved
     new: Upload a new video
-    none_uploaded_yet: You've not uploaded a video yet! Click "Upload a new video" above
+    none_uploaded_yet: You've not uploaded a video yet! Click "Upload a new video"
     resubmit: You can submit a new video via the "Upload a new video" link.
-    review_required: Your video will require approval by an instructor before it appears in the video list.
+    review_not_required_but_none_yet: No videos yet. Why not record one? Click "Upload a new video"
+    review_required: Any videos you upload will require approval by an instructor.
+    review_required_but_none_yet: No videos approved yet. Why not record one? Click "Upload a new video"
     save_failed: Oops. We couldn't save that video. Please try again later!
     updated: Updated that video
     uploading_in_progress: Your video is being uploaded and processed. Please don't close this window.

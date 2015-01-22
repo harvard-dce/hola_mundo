@@ -1,7 +1,7 @@
 <% if flash.any? %>
   <div id="flash">
     <% flash.each do |key, value| -%>
-      <div class="flash-<%= key %>"><%= value %></div>
+      <div class="flash-container flash-<%= key %>"><%= value %><div class="close" style="background-image: url('<%= asset_path('close.png') %>');"></div></div>
     <% end -%>
   </div>
 <% end %>

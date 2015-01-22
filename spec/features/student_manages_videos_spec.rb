@@ -24,10 +24,15 @@ feature 'A user manages upload videos' do
 
     scenario 'then they are prompted to create a video' do
       visit '/'
+
+      expect(page).to have_content(t('videos.review_required_but_none_yet'))
+    end
+
+    scenario 'they can create a video' do
+      visit '/'
       click_on t('videos.view_my_video')
 
       expect(page).to have_content(t('videos.none_uploaded_yet'))
     end
   end
-
 end

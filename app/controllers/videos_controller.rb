@@ -1,13 +1,20 @@
 class VideosController < ApplicationController
   before_filter :initialize_course
   before_filter :only_instructors, only: [:update]
+  before_filter :find_my_video, only: [:show, :index, :new]
 
   def show
-    @my_video = find_my_video
   end
 
   def index
-    @videos = course.videos
+    if all_videos_visible?
+      @videos = course.videos.all
+    else
+      @videos = course.videos.approved.all
+    end
+    if @videos.empty?
+      flash[:notice] = t("videos.#{course.review_required? ? 'review_required_but_' : 'review_not_required_but_' }none_yet")
+    end
   end
 
   def create
@@ -55,8 +62,12 @@ class VideosController < ApplicationController
 
   private
 
+  def all_videos_visible?
+    ! course.review_required? || current_user.has_role?('instructor')
+  end
+
   def find_my_video
-    Video.by_course_id(course.id).find_by(
+    @my_video = Video.by_course_id(course.id).find_by(
       dce_lti_user_id: current_user.id
     )
   end

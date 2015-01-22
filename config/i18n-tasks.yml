@@ -12,3 +12,4 @@ ignore_unused:
   - time.*
   - titles.*
   - videos.approval_state_*
+  - videos.*but_none_yet

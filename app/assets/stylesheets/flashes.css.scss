@@ -38,3 +38,16 @@ $success-color: #e6efc2 !default;
 .flash-success {
   @include flash($success-color);
 }
+
+.close {
+  float: right;
+  width: 24px;
+  height: 24px;
+  background-size: 24px 24px;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}

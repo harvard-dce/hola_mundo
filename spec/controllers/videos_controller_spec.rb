@@ -9,7 +9,9 @@ describe VideosController do
       it 'are redirected to the invalid session path' do
         put :update, id: 10
 
-        expect(response).to redirect_to(DceLti::Engine.routes.url_helpers.invalid_sessions_path)
+        expect(response).to redirect_to(
+          DceLti::Engine.routes.url_helpers.invalid_sessions_path
+        )
       end
     end
 
@@ -17,14 +19,19 @@ describe VideosController do
       it 'are redirected to the invalid session path' do
         delete :destroy,id: 10
 
-        expect(response).to redirect_to(DceLti::Engine.routes.url_helpers.invalid_sessions_path)
+        expect(response).to redirect_to(
+          DceLti::Engine.routes.url_helpers.invalid_sessions_path
+        )
       end
     end
+
     context '#index' do
       it 'are redirected to the invalid session path' do
         get :index
 
-        expect(response).to redirect_to(DceLti::Engine.routes.url_helpers.invalid_sessions_path)
+        expect(response).to redirect_to(
+          DceLti::Engine.routes.url_helpers.invalid_sessions_path
+        )
       end
     end
 
@@ -32,7 +39,9 @@ describe VideosController do
       it 'are redirected to the invalid session path' do
         get :new
 
-        expect(response).to redirect_to(DceLti::Engine.routes.url_helpers.invalid_sessions_path)
+        expect(response).to redirect_to(
+          DceLti::Engine.routes.url_helpers.invalid_sessions_path
+        )
       end
     end
 
@@ -40,30 +49,14 @@ describe VideosController do
       it 'are redirected to the invalid session path' do
         post :new, { videos: {} }
 
-        expect(response).to redirect_to(DceLti::Engine.routes.url_helpers.invalid_sessions_path)
+        expect(response).to redirect_to(
+          DceLti::Engine.routes.url_helpers.invalid_sessions_path
+        )
       end
     end
   end
 
   context '#index' do
-    it 'auto creates a course on successful launch and saves the title' do
-      resource_link_id = 'an awesome course id'
-      context_title = 'A course (AKA context) title'
-      session[:resource_link_id] = resource_link_id
-      session[:context_title] = context_title
-
-      course = build(:course, id: 1000)
-      allow(course).to receive_messages(:title= => true , new_record?: true, save!: true)
-      allow(Course).to receive(:find_or_initialize_by).and_return(course)
-      stub_user
-
-      get :index
-
-      expect(Course).to have_received(:find_or_initialize_by).with(resource_link_id: resource_link_id)
-      expect(course).to have_received(:title=).with(context_title)
-      expect(course).to have_received(:save!)
-    end
-
     it 'visits are successful' do
       stub_user
 
@@ -71,27 +64,83 @@ describe VideosController do
 
       expect(response).to be_successful
     end
+
+    it 'auto creates a course on successful launch and saves the title' do
+      resource_link_id = 'an awesome course id'
+      context_title = 'A course (AKA context) title'
+      course = stub_course(
+        resource_link_id: resource_link_id,
+        context_title: context_title
+      )
+      stub_user
+
+      get :index
+
+      expect(Course).to have_received(
+        :find_or_initialize_by
+      ).with(resource_link_id: resource_link_id)
+      expect(course).to have_received(:title=).with(context_title)
+      expect(course).to have_received(:save!)
+    end
+
+    context 'viewed by students' do
+      it 'shows only approved videos when course requires approval' do
+        user = stub_user
+        user.roles = ['student']
+
+        course = stub_course
+        course.review_required = true
+        allow(course).to receive_message_chain(
+          :videos, :approved, :all
+        ).and_return([])
+
+        get :index
+
+        expect(course.videos.approved).to have_received(:all)
+      end
+
+      it 'shows all videos when a course does not require approval' do
+        user = stub_user
+        user.roles = ['student']
+        course = stub_course
+        course.review_required = false
+        allow(course).to receive_message_chain(:videos, :all).and_return([])
+
+        get :index
+
+        expect(course.videos).to have_received(:all)
+      end
+    end
+
+    it 'shows all videos to instructors' do
+      user = stub_user
+      user.roles = ['instructor']
+
+      course = stub_course
+      course.review_required = true
+      allow(course).to receive_message_chain(:videos, :all).and_return([])
+
+      get :index
+
+      expect(course.videos).to have_received(:all)
+    end
   end
 
   context '#show' do
     it 'finds videos for a visitor' do
-      course = build(:course, id: 10000, resource_link_id: 'sdf')
-      allow(Course).to receive(:find_or_initialize_by).and_return(course)
+      course = stub_course
       user = stub_user
 
-      resource_link_scoped_videos_double = double('Found vids by resource_link_id')
-      allow(resource_link_scoped_videos_double).to receive(:find_by)
-      allow(Video).to receive(:by_course_id).and_return(
-        resource_link_scoped_videos_double
-      )
+      allow(Video).to receive_message_chain(
+        :by_course_id, :find_by
+      ).and_return([])
 
       get :show
 
-      expect(Video).to have_received(:by_course_id).with(
-        course.id
+      expect(Video).to have_received(:by_course_id).with(course.id)
+      expect(Video.by_course_id).to have_received(:find_by).with(
+        dce_lti_user_id: user.id
       )
-      expect(resource_link_scoped_videos_double).to have_received(:find_by).
-        with(dce_lti_user_id: user.id)
     end
   end
 
@@ -110,18 +159,15 @@ describe VideosController do
     it 'can update a video' do
       user = stub_user
       user.roles = ['instructor']
-      video = create(:video, approved: false)
-      course = video.course
-      find_double = double(:find, find: video)
-
-      allow(course).to receive(:videos).and_return(find_double)
-      allow(controller).to receive(:course).and_return(course)
+      course = stub_course
+      video = build(:video, approved: false, course: course, id: 1000)
+      allow(video).to receive(:approved=)
+      allow(course).to receive_message_chain(:videos, :find).and_return(video)
 
       put :update, id: video.id, approved: true
 
-      expect(video).to be_approved
-      expect(course).to have_received(:videos)
-      expect(find_double).to have_received(:find).with(video.id.to_s)
+      expect(video).to have_received(:approved=).with(true)
+      expect(course.videos).to have_received(:find).with(video.id.to_s)
       expect(flash).to include(['notice', t('videos.updated')])
       expect(response).to redirect_to(root_path)
     end
@@ -129,7 +175,6 @@ describe VideosController do
     it 'redirects to the home page if updating fails' do
       user = stub_user
       user.roles = ['instructor']
-
       video = build(:video, id: 100)
       allow(video).to receive(:save!).and_raise
 
@@ -176,8 +221,10 @@ describe VideosController do
       it 'can destroy a video' do
         user = stub_user
         user.roles = ['instructor']
-        video = create(:video)
-        allow(controller).to receive(:course).and_return(video.course)
+        course = stub_course
+        video = build(:video, id: 1000)
+        allow(course).to receive_message_chain(:videos, :find).and_return(video)
+        allow(video).to receive(:destroy)
 
         delete :destroy, id: video.id
 
@@ -189,11 +236,10 @@ describe VideosController do
 
     context 'accessed by video owner' do
       it 'can destroy a video' do
-        user = create(:dce_lti_user)
-        allow(controller).to receive(:current_user).and_return(user)
-        video = create(:video, dce_lti_user: user)
-
-        allow(controller).to receive(:course).and_return(video.course)
+        user = stub_user
+        course = stub_course
+        video = build(:video, dce_lti_user: user, id: 1000)
+        allow(course).to receive_message_chain(:videos, :find).and_return(video)
         allow(video).to receive(:destroy)
 
         delete :destroy, id: video.id
@@ -206,7 +252,9 @@ describe VideosController do
 
     context 'accessed by non-instructors and non-video owner' do
       it 'redirects to the root path' do
-        user = stub_user
+        stub_user
+        course = stub_course
+        allow(course).to receive_message_chain(:videos, :find)
 
         delete :destroy, id: 10
 
@@ -214,4 +262,5 @@ describe VideosController do
       end
     end
   end
+
 end

@@ -1,6 +1,9 @@
 <div class="full-width">
   <div class="upload-widget">
     <div id="upload_widget" data-course-title="<%= course.title %>"></div>
+    <% if @my_video.present? %>
+      <p><%= t('videos.already_uploaded') %></p>
+    <% end %>
     <% if course.review_required? %>
       <p><%= t('videos.review_required') %></p>
     <% end %>
