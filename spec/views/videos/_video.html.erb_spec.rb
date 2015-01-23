@@ -37,14 +37,23 @@ describe 'videos/_video.html.erb' do
       expect(rendered).to have_css('.edit_video_menu')
     end
 
-    it 'are not displayed to non-instructors' do
+    it 'are not displayed to non-instructors and non-owners' do
       stub_learner_role
       user = build(:dce_lti_user)
       allow(view).to receive(:current_user).and_return(user)
 
-      render 'videos/video', video: build(:video, dce_lti_user: user)
+      render 'videos/video', video: build(:video)
 
       expect(rendered).not_to have_css('.edit_video_menu')
+    end
+    it 'are displayed to non-instructors that own the video' do
+      stub_learner_role
+      user = build(:dce_lti_user)
+      allow(view).to receive(:current_user).and_return(user)
+
+      render 'videos/video', video: build(:video, id: 100, dce_lti_user: user)
+
+      expect(rendered).to have_css('.edit_video_menu')
     end
   end
 end
