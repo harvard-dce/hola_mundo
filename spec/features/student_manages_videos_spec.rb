@@ -2,9 +2,10 @@ feature 'A user manages upload videos' do
   context 'and has created a video' do
     before do
       course = create(:course)
-      user = create(:dce_lti_user, :student)
+      user = create(:dce_lti_user)
       ENV['FAKE_USER_ID'] = user.id.to_s
       page.set_rack_session(resource_link_id: course.resource_link_id)
+      page.set_rack_session(roles: ['learner'])
       create(:video, dce_lti_user: user, course: course)
     end
 
@@ -18,8 +19,9 @@ feature 'A user manages upload videos' do
 
   context 'and does not have a video' do
     before do
-      ENV['FAKE_USER_ID'] = create(:dce_lti_user, :student).id.to_s
+      ENV['FAKE_USER_ID'] = create(:dce_lti_user).id.to_s
       page.set_rack_session(resource_link_id: 'a resource link id')
+      page.set_rack_session(roles: ['learner'])
     end
 
     scenario 'then they are prompted to create a video' do

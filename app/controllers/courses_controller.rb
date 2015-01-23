@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_filter :only_instructors, :initialize_course
+  before_filter :initialize_course, :initialize_course_roles, :only_instructors
 
   def edit
   end

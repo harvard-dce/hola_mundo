@@ -1,7 +1,8 @@
 feature 'An instructor manages a course' do
   before do
-    ENV['FAKE_USER_ID'] = create(:dce_lti_user, :instructor).id.to_s
+    ENV['FAKE_USER_ID'] = create(:dce_lti_user).id.to_s
     page.set_rack_session(resource_link_id: 'a resource link id')
+    page.set_rack_session(roles: ['instructor'])
   end
 
   scenario 'and can set a course to allow unreviewed videos' do

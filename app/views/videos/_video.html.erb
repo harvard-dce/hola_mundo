@@ -20,7 +20,7 @@
           <%= t("videos.approval_state_#{video.approved}") %>
         </span>
       <% end %>
-      <% if current_user.has_role?('instructor') %>
+      <% if course.user_has_role?(current_user,'instructor') %>
         <%= render 'dropdown', video: video %>
       <% end %>
     </div>

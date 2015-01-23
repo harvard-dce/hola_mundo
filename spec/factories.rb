@@ -1,12 +1,6 @@
 FactoryGirl.define do
   factory :dce_lti_user, class: DceLti::User do
     sequence(:lti_user_id) { |n| "user_id-#{n}" }
-    trait :student do
-      roles ['student']
-    end
-    trait :instructor do
-      roles ['instructor']
-    end
   end
 
   factory :course do

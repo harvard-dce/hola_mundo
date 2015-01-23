@@ -24,7 +24,7 @@ DceLti::Engine.setup do |lti|
   # and in the spec as well:
   # http://www.imsglobal.org/LTI/v1p1p1/ltiIMGv1p1p1.html#_Toc330273026
   #
-  # lti.copy_launch_attributes_to_session.push(:additional_attribute_to_capture)
+  lti.copy_launch_attributes_to_session.push(:roles)
 
   # The consumer_secret and consumer_key should be a lambda that will be
   # evaluated in the context of your application. You might use a service

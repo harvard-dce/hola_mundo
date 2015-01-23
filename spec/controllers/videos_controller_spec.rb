@@ -1,5 +1,6 @@
 describe VideosController do
   include LtiControllerHelpers
+
   before do
     stub_course_session_variables
   end
@@ -83,11 +84,9 @@ describe VideosController do
       expect(course).to have_received(:save!)
     end
 
-    context 'viewed by students' do
+    context 'viewed by learners' do
       it 'shows only approved videos when course requires approval' do
         user = stub_user
-        user.roles = ['student']
-
         course = stub_course
         course.review_required = true
         allow(course).to receive_message_chain(
@@ -101,7 +100,6 @@ describe VideosController do
 
       it 'shows all videos when a course does not require approval' do
         user = stub_user
-        user.roles = ['student']
         course = stub_course
         course.review_required = false
         allow(course).to receive_message_chain(:videos, :all).and_return([])
@@ -114,15 +112,16 @@ describe VideosController do
 
     it 'shows all videos to instructors' do
       user = stub_user
-      user.roles = ['instructor']
 
       course = stub_course
+      allow(course).to receive(:user_has_role?).and_return(true)
       course.review_required = true
       allow(course).to receive_message_chain(:videos, :all).and_return([])
 
       get :index
 
       expect(course.videos).to have_received(:all)
+      expect(course).to have_received(:user_has_role?).with(user, 'instructor')
     end
   end
 
@@ -145,7 +144,7 @@ describe VideosController do
   end
 
   context '#update' do
-    it 'cannot be accessed by students' do
+    it 'cannot be accessed by learners' do
       stub_user
       video = build(:video, id: 100)
       allow(video).to receive(:save!)
@@ -158,8 +157,8 @@ describe VideosController do
 
     it 'can update a video' do
       user = stub_user
-      user.roles = ['instructor']
       course = stub_course
+      allow(course).to receive(:user_has_role?).and_return(true)
       video = build(:video, approved: false, course: course, id: 1000)
       allow(video).to receive(:approved=)
       allow(course).to receive_message_chain(:videos, :find).and_return(video)
@@ -170,11 +169,14 @@ describe VideosController do
       expect(course.videos).to have_received(:find).with(video.id.to_s)
       expect(flash).to include(['notice', t('videos.updated')])
       expect(response).to redirect_to(root_path)
+      expect(course).to have_received(:user_has_role?).with(user, 'instructor')
     end
 
     it 'redirects to the home page if updating fails' do
       user = stub_user
-      user.roles = ['instructor']
+      course = stub_course
+      allow(course).to receive(:user_has_role?).and_return(true)
+
       video = build(:video, id: 100)
       allow(video).to receive(:save!).and_raise
 
@@ -182,6 +184,7 @@ describe VideosController do
 
       expect(flash).to include(['error', t('videos.save_failed')])
       expect(response).to redirect_to(root_path)
+      expect(course).to have_received(:user_has_role?).with(user, 'instructor')
     end
   end
 
@@ -220,8 +223,9 @@ describe VideosController do
     context 'accessed by instructors' do
       it 'can destroy a video' do
         user = stub_user
-        user.roles = ['instructor']
         course = stub_course
+        allow(course).to receive(:user_has_role?).and_return(true)
+
         video = build(:video, id: 1000)
         allow(course).to receive_message_chain(:videos, :find).and_return(video)
         allow(video).to receive(:destroy)
@@ -231,6 +235,7 @@ describe VideosController do
         expect(response).to redirect_to(root_path)
         expect{Video.find(video.id)}.to raise_error
         expect(flash).to include(['notice', t('videos.destroyed')])
+        expect(course).to have_received(:user_has_role?).with(user, 'instructor')
       end
     end
 
@@ -251,14 +256,17 @@ describe VideosController do
     end
 
     context 'accessed by non-instructors and non-video owner' do
-      it 'redirects to the root path' do
+      it 'does not attempt to destroy a video' do
         stub_user
         course = stub_course
-        allow(course).to receive_message_chain(:videos, :find)
+        video = build(:video, id: 1000)
+        allow(video).to receive(:destroy)
+        allow(course).to receive_message_chain(:videos, :find).and_return(video)
 
-        delete :destroy, id: 10
+        delete :destroy, id: video.id
 
         expect(response).to redirect_to(root_path)
+        expect(video).not_to have_received(:destroy)
       end
     end
   end

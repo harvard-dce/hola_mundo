@@ -7,7 +7,7 @@
     <a href="javascript:void(0)" id="js-centered-navigation-mobile-menu" class="centered-navigation-mobile-menu js-centered-navigation-mobile-menu-toggle">MENU</a>
     <nav role="navigation">
       <ul id="js-centered-navigation-menu" class="centered-navigation-menu show">
-        <% if current_user && current_user.has_role?('instructor') %>
+        <% if current_user && course.user_has_role?(current_user, 'instructor') %>
           <li class="nav-link">
             <%= link_to(t('courses.settings'), edit_course_path) %>
           </li>

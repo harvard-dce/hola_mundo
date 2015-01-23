@@ -23,13 +23,11 @@ if Rails.env.development?
      odmKYVm72LU
      7Pq-S557XQU
      0dU4IMex4FU|.each do |youtube_id|
-        user = create(:dce_lti_user, :student)
-        create(
-          :video,
-          dce_lti_user: user,
-          course: course,
-          youtube_id: youtube_id
-        )
+        user = create(:dce_lti_user)
+        Video.find_or_initialize_by(youtube_id: youtube_id).tap do |video|
+          video.course = course
+          video.dce_lti_user = user
+        end.save!
       end
     end
   end

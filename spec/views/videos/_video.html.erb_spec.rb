@@ -1,7 +1,10 @@
 describe 'videos/_video.html.erb' do
+  include ViewAuthHelpers
+
   context 'displays meaningful info about approval state' do
     before do
-      allow(view).to receive(:current_user).and_return(build(:dce_lti_user, :instructor))
+      stub_instructor_role
+      allow(view).to receive(:current_user).and_return(build(:dce_lti_user))
     end
 
     it 'when false' do
@@ -25,7 +28,8 @@ describe 'videos/_video.html.erb' do
 
   context 'admin controls' do
     it 'are displayed to instructors' do
-      user = build(:dce_lti_user, :instructor)
+      stub_instructor_role
+      user = build(:dce_lti_user)
       allow(view).to receive(:current_user).and_return(user)
 
       render 'videos/video', video: build(:video, dce_lti_user: user, id: 10)
@@ -34,7 +38,8 @@ describe 'videos/_video.html.erb' do
     end
 
     it 'are not displayed to non-instructors' do
-      user = build(:dce_lti_user, :student)
+      stub_learner_role
+      user = build(:dce_lti_user)
       allow(view).to receive(:current_user).and_return(user)
 
       render 'videos/video', video: build(:video, dce_lti_user: user)

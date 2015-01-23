@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150116200021) do
+ActiveRecord::Schema.define(version: 20150122212036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "course_roles", force: true do |t|
+    t.integer  "dce_lti_user_id"
+    t.integer  "course_id"
+    t.string   "role",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "course_roles", ["course_id"], name: "index_course_roles_on_course_id", using: :btree
+  add_index "course_roles", ["dce_lti_user_id"], name: "index_course_roles_on_dce_lti_user_id", using: :btree
+  add_index "course_roles", ["role"], name: "index_course_roles_on_role", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "title"

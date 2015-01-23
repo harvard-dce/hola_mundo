@@ -1,5 +1,5 @@
 class VideosController < ApplicationController
-  before_filter :initialize_course
+  before_filter :initialize_course, :initialize_course_roles
   before_filter :only_instructors, only: [:update]
   before_filter :find_my_video, only: [:show, :index, :new]
 
@@ -34,8 +34,7 @@ class VideosController < ApplicationController
   def destroy
     begin
       video = course.videos.find(params[:id])
-      if current_user.has_role?('instructor') ||
-        video.dce_lti_user == current_user
+      if video_can_be_destroyed_by_user?(video)
         video.destroy
         flash[:notice] = t('videos.destroyed')
       end
@@ -62,8 +61,13 @@ class VideosController < ApplicationController
 
   private
 
+  def video_can_be_destroyed_by_user?(video)
+    course.user_has_role?(current_user,'instructor') ||
+      video.dce_lti_user == current_user
+  end
+
   def all_videos_visible?
-    ! course.review_required? || current_user.has_role?('instructor')
+    ! course.review_required? || course.user_has_role?(current_user,'instructor')
   end
 
   def find_my_video
