@@ -21,6 +21,10 @@ class Video < ActiveRecord::Base
     where(approved: true)
   end
 
+  def self.not_approved
+    where(approved: false)
+  end
+
   def self.by_course_id(course_id)
     where(course_id: course_id)
   end

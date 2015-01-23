@@ -1,0 +1,20 @@
+<div id="filters">
+  <h2><%= t('videos.filter_by') %></h2>
+  <%= simple_form_for(@filter_set, url: videos_path, method: :get) do |f| %>
+    <% if course.review_required? && course.user_has_role?(current_user, 'instructor') %>
+      <span class="filter_element">
+        <%= f.label :approval_state %>
+        <%= f.input_field :approval_state, collection: FilterSet.approval_options, default: nil %>
+      </span>
+    <% end %>
+    <span class="filter_element">
+      <%= f.label :name %>
+      <%= f.input_field :name %>
+    </span>
+    <span class="filter_element">
+      <%= f.label :sort_by %>
+      <%= f.input_field :sort_by, collection: FilterSet.sort_by_values, default: nil %>
+    </span>
+    <%= f.submit %>
+  <% end %>
+</div>

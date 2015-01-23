@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :dce_lti_user, class: DceLti::User do
     sequence(:lti_user_id) { |n| "user_id-#{n}" }
+    sequence(:lis_person_name_full) { |n| "full-name-#{n}" }
   end
 
   factory :course do
@@ -10,6 +11,7 @@ FactoryGirl.define do
   end
 
   factory :video do
+    approved false
     sequence(:youtube_id) { |n| "youtube-id-#{n}" }
     dce_lti_user
     course

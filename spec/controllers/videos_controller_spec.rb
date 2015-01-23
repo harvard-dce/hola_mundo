@@ -66,6 +66,16 @@ describe VideosController do
       expect(response).to be_successful
     end
 
+    it 'uses a filter set' do
+      stub_user
+      filter_set = double(:filter_set).as_null_object
+      allow(controller).to receive(:create_filter_set).and_return(filter_set)
+
+      get :index
+
+      expect(controller).to have_received(:create_filter_set)
+    end
+
     it 'auto creates a course on successful launch and saves the title' do
       resource_link_id = 'an awesome course id'
       context_title = 'A course (AKA context) title'
@@ -89,9 +99,8 @@ describe VideosController do
         user = stub_user
         course = stub_course
         course.review_required = true
-        allow(course).to receive_message_chain(
-          :videos, :approved, :all
-        ).and_return([])
+        videos_double = double('videos finder').as_null_object
+        allow(course).to receive(:videos).and_return(videos_double)
 
         get :index
 
@@ -102,11 +111,14 @@ describe VideosController do
         user = stub_user
         course = stub_course
         course.review_required = false
-        allow(course).to receive_message_chain(:videos, :all).and_return([])
+        videos_double = double('videos finder').as_null_object
+        allow(course).to receive(:videos).and_return(videos_double)
 
         get :index
 
-        expect(course.videos).to have_received(:all)
+        expect(course).to have_received(:videos)
+        expect(course.videos).not_to have_received(:approved)
+        expect(course.videos).not_to have_received(:not_approved)
       end
     end
 
@@ -116,11 +128,15 @@ describe VideosController do
       course = stub_course
       allow(course).to receive(:user_has_role?).and_return(true)
       course.review_required = true
-      allow(course).to receive_message_chain(:videos, :all).and_return([])
+
+      videos_double = double('videos finder').as_null_object
+      allow(course).to receive(:videos).and_return(videos_double)
 
       get :index
 
-      expect(course.videos).to have_received(:all)
+      expect(course).to have_received(:videos)
+      expect(course.videos).not_to have_received(:approved)
+      expect(course.videos).not_to have_received(:not_approved)
       expect(course).to have_received(:user_has_role?).with(user, 'instructor')
     end
   end

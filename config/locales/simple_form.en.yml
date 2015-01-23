@@ -1,4 +1,8 @@
 en:
+  helpers:
+    submit:
+      filter_set:
+        create: Go
   simple_form:
     "yes": 'Yes'
     "no": 'No'
@@ -10,6 +14,9 @@ en:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Please review the problems below:"
+    labels:
+      filter_set:
+        approved: Approval
     # Examples
     # labels:
     #   defaults:

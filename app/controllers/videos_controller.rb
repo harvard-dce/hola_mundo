@@ -7,10 +7,11 @@ class VideosController < ApplicationController
   end
 
   def index
-    if all_videos_visible?
-      @videos = course.videos.all
-    else
-      @videos = course.videos.approved.all
+    @filter_set = create_filter_set
+
+    @videos = @filter_set.apply_to(course.videos)
+    if ! all_videos_visible?
+      @videos = @videos.approved.all
     end
     if @videos.empty?
       flash[:notice] = t("videos.#{course.review_required? ? 'review_required_but_' : 'review_not_required_but_' }none_yet")
@@ -78,5 +79,9 @@ class VideosController < ApplicationController
 
   def video_params
     params.fetch(:video, {})
+  end
+
+  def create_filter_set
+    FilterSet.new(params.fetch(:filter_set, {}))
   end
 end

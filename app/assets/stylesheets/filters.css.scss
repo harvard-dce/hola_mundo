@@ -1,0 +1,28 @@
+#filters {
+  @include span-columns(12);
+  @include omega();
+  font-size: 12px;
+  text-align: right;
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+  h2 {
+    font-size: 14px;
+  }
+  select, label, input, h2, form, span.filter_element {
+    display: inline-block;
+  }
+  select {
+    padding: 5px;
+  }
+  input.string {
+    width: 12em;
+  }
+  input[type="submit"] {
+    margin: -3px 0px 0px 1em;
+  }
+  label {
+    margin-left: 3em;
+    margin-right: .5em;
+  }
+}

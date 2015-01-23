@@ -23,6 +23,10 @@ gem "uglifier"
 gem "unicorn"
 gem "dce_lti", "~> 0.3.0"
 
+group :development do
+  gem 'quiet_assets'
+end
+
 group :development, :test do
   gem "awesome_print"
   gem "byebug"
