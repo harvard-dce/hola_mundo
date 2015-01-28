@@ -1,6 +1,23 @@
 .video {
-  @include span-columns(4);
-  @include omega(3n);
+  $mobile: new-breakpoint(min-width 320px max-width 480px);
+  $medium: new-breakpoint(min-width 481px max-width 800px);
+  $desktop: new-breakpoint(min-width 801px);
+
+  @include media($medium) {
+    @include span-columns(6);
+    @include omega(2n);
+  }
+
+  @include media($mobile) {
+    @include span-columns(12);
+    @include omega();
+  }
+
+  @include media($desktop) {
+    @include span-columns(4);
+    @include omega(3n);
+  }
+
   .wrapper {
     margin: 1em 1em 2em 1em;
     padding: 1em;
@@ -13,10 +30,11 @@
       background: no-repeat;
       background-position: center center;
       background-size: cover;
-      width: 280px;
+      max-width: 280px;
       height: 157.5px;
       text-align: center;
       cursor: pointer;
+      margin: 0px auto;
 
       &:before {
         content: '';
@@ -64,7 +82,7 @@
     .wrapper {
       width: 676px;
       .youtube_container {
-        width: 640px;
+        max-width: 640px;
         height: 390px;
 
         .play_button {
