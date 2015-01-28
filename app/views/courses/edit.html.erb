@@ -1,4 +1,23 @@
-<%= simple_form_for(course) do |f| %>
-  <%= f.input :review_required %>
-  <%= f.button :submit %>
-<% end %>
+<div class="full-width">
+  <div class="edit-form">
+    <h2><%= title %></h2>
+    <%= simple_form_for(course) do |f| %>
+      <%= f.input :welcome_message, as: :text %>
+      <%= f.input :upload_description, as: :text %>
+      <%= f.input :review_required %>
+      <%= f.button :submit %>
+    <% end %>
+    <p class="markdown_info"><%= link_to(t('courses.markdown_info'), '//daringfireball.net/projects/markdown/basics', target: '_blank') %></p>
+  </div>
+  <div class="preview">
+    <h2><%= t('courses.preview') %></h2>
+    <div id="welcome-message">
+      <h3><%= t('courses.welcome_message') %></h3>
+      <%= raw markdown_format(course.welcome_message) %>
+    </div>
+    <div id="upload-description-message">
+      <h3><%= t('courses.upload_description') %></h3>
+      <%= raw markdown_format(course.upload_description) %>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,10 @@ describe Course do
 
   it { should ensure_length_of(:title).is_at_most(255) }
 
+  it { should ensure_length_of(:welcome_message).is_at_most(2.kilobytes) }
+  it { should ensure_length_of(:upload_description).is_at_most(2.kilobytes) }
+
+
   context 'review_required' do
     it 'is true by default' do
       expect(described_class.new.review_required).to be true

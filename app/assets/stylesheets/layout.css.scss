@@ -6,10 +6,10 @@
   @include span-columns(12);
 }
 
-.upload-widget{
+.videos-new .upload-widget, .courses-edit .edit-form{
   @include span-columns(6);
 }
-.upload-player{
+.videos-new .upload-player, .courses-edit .preview{
   @include span-columns(6);
   @include omega();
 }

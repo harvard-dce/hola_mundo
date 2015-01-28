@@ -13,5 +13,27 @@ feature 'An instructor manages a course' do
     click_on('Update Course')
 
     expect(page).to have_no_checked_field('Review required')
+
+    check('Review required')
+    click_on('Update Course')
+
+    expect(page).to have_checked_field('Review required')
+  end
+
+  scenario 'and can set contextual language that appears in the interface' do
+    visit '/'
+
+    click_on t('courses.settings')
+    fill_in 'Welcome message', with: 'A sweet welcome message'
+    fill_in 'Upload description', with: 'Hi. do *this* to upload a thing'
+    click_on('Update Course')
+
+    click_on 'Upload a new video'
+
+    expect(page).to have_css('em', text: 'this')
+
+    click_on 'Videos'
+
+    expect(page).to have_content('A sweet welcome message')
   end
 end

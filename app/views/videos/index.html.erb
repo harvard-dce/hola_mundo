@@ -1,7 +1,7 @@
 <div class="full-width">
   <%= render 'filters' %>
 </div>
-
+<div id="welcome-message"><%= raw markdown_format(course.welcome_message) %></div>
 <div class="full-width video-list">
   <%= render @videos %>
 </div>

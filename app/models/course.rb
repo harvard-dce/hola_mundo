@@ -13,6 +13,9 @@ class Course < ActiveRecord::Base
   validates :title,
     length: { maximum: 255 }
 
+  validates :upload_description, :welcome_message,
+    length: { maximum: 2.kilobytes }
+
   def user_has_role?(user, role)
     self.course_roles.where(dce_lti_user_id: user.id, role: role.downcase).present?
   end

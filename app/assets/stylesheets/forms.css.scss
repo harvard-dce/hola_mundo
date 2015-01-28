@@ -1,0 +1,16 @@
+form{
+  .hint {
+    display: inline-block;
+    font-size: 0.8em;
+    color: #aaa;
+    margin-bottom: 2em;
+  }
+  .error {
+    display: inline-block;
+    color: red;
+    font-weight: bold;
+    padding-left: 1em;
+  }
+}
+
+

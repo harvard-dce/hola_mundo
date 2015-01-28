@@ -73,6 +73,24 @@
   }
 }
 
+#welcome-message, #upload-description-message {
+  .contextual-message{
+    margin: 1em;
+    padding: 1em;
+    background: $notice-color;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px transparentize(black, 0.8);
+  }
+}
+
+.videos-index {
+  #welcome-message {
+    @include span-columns(12);
+    @include omega();
+  }
+}
+
 .videos-show {
   .video {
     width: 680px;
@@ -90,5 +108,18 @@
         }
       }
     }
+  }
+}
+
+.videos-new {
+  #upload-description-message{
+    width: 500px;
+  }
+  #player {
+    display: none;
+    background: no-repeat;
+    background-position: center center;
+    background-image: url("<%= asset_path('progress.gif') %>");
+    height: 300px;
   }
 }

@@ -20,6 +20,12 @@ en:
   titles:
     application: Hola mundo
     homepage: Videos
+    courses:
+      edit: Edit course settings
+    videos:
+      index: Video list
+      show: My video
+      new: Upload a new video
 
   videos:
     already_uploaded: You've already uploaded a video - you can see it under "My video", or re-record one here.
@@ -54,5 +60,10 @@ en:
     your_current_video: Your currently submitted video
 
   courses:
+    preview: Course message previews
     settings: Course settings
     updated: Updated the course settings
+    welcome_message: Welcome Message
+    upload_description: Upload description
+    markdown_info: The welcome message and description both accept most markdown formatting. Details here.
+    save_failed: Oops. We couldn't save that course. Please look below for errors.

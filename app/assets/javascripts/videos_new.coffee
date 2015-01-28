@@ -2,7 +2,7 @@ $ ->
   widget = ''
 
   postYoutubeId = (event) ->
-    $('#uploading_in_progress').show()
+    $('#uploading_in_progress, #player').show()
     $.ajax(
       type: 'POST',
       url: httpRoot + 'videos',

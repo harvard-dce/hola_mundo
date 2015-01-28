@@ -5,12 +5,14 @@
 @import 'base/grid-settings';
 @import 'neat';
 @import 'base/base';
+@import 'forms';
 @import 'flashes';
 @import 'toolbar';
 @import 'dropdown';
 @import 'badges';
 @import 'layout';
 @import 'filters';
+@import 'courses';
 @import 'videos';
 
 iframe{
@@ -21,3 +23,22 @@ iframe{
 .clearfix {
   @include clearfix();
 }
+
+h1, h2, h3, h4, h5, h6{
+  margin-bottom: 1em;
+}
+
+ol, ul {
+  margin-top: 1em;
+}
+
+li {
+  list-style-position: inside;
+  margin-left: .5em;
+  list-style-type: initial;
+}
+
+ol li {
+  list-style-type: decimal;
+}
+

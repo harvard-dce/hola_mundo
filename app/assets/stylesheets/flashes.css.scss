@@ -51,3 +51,19 @@ $success-color: #e6efc2 !default;
     cursor: pointer;
   }
 }
+
+.videos-new {
+  .progress_message {
+    font-size: .8em;
+    width: 500px;
+  }
+  #uploading_in_progress {
+    @include flash($notice-color);
+  }
+  .video_present {
+    @include flash($success-color);
+  }
+  .instructor_review_required {
+    @include flash($alert-color);
+  }
+}

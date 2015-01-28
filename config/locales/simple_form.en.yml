@@ -17,6 +17,10 @@ en:
     labels:
       filter_set:
         approved: Approval
+    hints:
+      defaults:
+        welcome_message: This will appear at the top of the main list of videos.
+        upload_description: A message on the "Upload a new video" page that describes to a student what you think a good video looks like.
     # Examples
     # labels:
     #   defaults:

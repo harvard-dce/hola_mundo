@@ -1,15 +1,18 @@
 <div class="full-width">
   <div class="upload-widget">
     <div id="upload_widget" data-course-title="<%= course.title %>"></div>
+    <div id="upload-description-message">
+      <%= raw markdown_format(course.upload_description) %>
+    </div>
+    <p id="uploading_in_progress" class="progress_message" style="display: none;">
+      <%= t('videos.uploading_in_progress') %>
+    </p>
     <% if @my_video.present? %>
-      <p><%= t('videos.already_uploaded') %></p>
+      <p class="video_present progress_message"><%= t('videos.already_uploaded') %></p>
     <% end %>
     <% if course.review_required? %>
-      <p><%= t('videos.review_required') %></p>
+      <p class="instructor_review_required progress_message"><%= t('videos.review_required') %></p>
     <% end %>
-    <div id="uploading_in_progress" style="display:none;">
-      <p><%= t('videos.uploading_in_progress') %></p>
-    </div>
   </div>
   <div class="upload-player">
     <div id="player"></div>

@@ -15,6 +15,7 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "rack-timeout"
 gem "rails", "~> 4.1.6"
+gem 'redcarpet'
 gem "recipient_interceptor"
 gem "sass-rails", "~> 4.0.3"
 gem "simple_form"

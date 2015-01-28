@@ -69,6 +69,17 @@ describe CoursesController do
         expect(flash[:notice]).to include(t('courses.updated'))
         expect(course).to have_received(:user_has_role?).with(user, 'instructor')
       end
+
+      it 'displays errors when saving is not successful' do
+        user = stub_user
+        course = build(:course)
+        allow(course).to receive(:user_has_role?).and_return(true)
+        allow(Course).to receive(:find_or_initialize_by).and_return(course)
+
+        patch :update, { course: { welcome_message: ('123' * 1000) } }
+
+        expect(flash[:error]).to include(t('courses.save_failed'))
+      end
     end
   end
 end
