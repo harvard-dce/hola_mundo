@@ -38,6 +38,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'bundler-audit', require: false
   gem 'brakeman', require: false
   gem "capybara-webkit", ">= 1.2.0"
   gem "database_cleaner"
