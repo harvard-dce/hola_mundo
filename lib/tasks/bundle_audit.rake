@@ -1,4 +1,6 @@
-require 'bundler/audit/cli'
+if Rails.env.test? || Rails.env.development?
+  require 'bundler/audit/cli'
+end
 # h/t to http://caseywest.com/run-bundle-audit-from-rake/
 
 namespace :bundle_audit do
