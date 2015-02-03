@@ -4,7 +4,7 @@ describe Video do
   it { should have_db_index(:dce_lti_user_id) }
 
   it { should validate_presence_of(:youtube_id) }
-  it { should ensure_length_of(:youtube_id).is_at_most(20) }
+  it { should validate_length_of(:youtube_id).is_at_most(20) }
 
   it { should validate_presence_of(:course_id) }
 
