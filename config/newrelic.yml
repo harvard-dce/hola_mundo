@@ -1,5 +1,5 @@
 common: &default_settings
-  app_name: "hola_mundo"
+  app_name: "dce-youtube-lti"
   audit_log:
     enabled: false
   browser_monitoring:
@@ -30,5 +30,5 @@ production:
   monitor_mode: true
 staging:
   <<: *default_settings
-  app_name: "hola_mundo (Staging)"
+  app_name: "dce-youtube-lti (Staging)"
   monitor_mode: true
