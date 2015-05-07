@@ -22,7 +22,8 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
-gem "dce_lti", "~> 0.3.0"
+gem "dce_lti", "~> 0.5.0"
+gem 'activerecord-session_store', '~> 0.1.1'
 
 group :development do
   gem 'quiet_assets'

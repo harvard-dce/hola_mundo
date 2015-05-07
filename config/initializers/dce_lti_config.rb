@@ -9,6 +9,8 @@ DceLti::Engine.setup do |lti|
   # lti.provider_description = (ENV['LTI_PROVIDER_DESCRIPTION'] || 'A description of this')
   # lti.redirect_after_successful_auth = ->{ Rails.application.routes.url_helpers.root_path }
 
+  lti.enable_cookieless_sessions = true
+
   lti.consumer_secret = (ENV['LTI_CONSUMER_SECRET'] || 'consumer_secret')
   lti.consumer_key = (ENV['LTI_CONSUMER_KEY'] || 'consumer_key')
 
