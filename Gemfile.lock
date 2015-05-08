@@ -191,7 +191,7 @@ GEM
     rake (10.4.2)
     recipient_interceptor (0.1.2)
       mail
-    redcarpet (3.2.2)
+    redcarpet (3.2.3)
     rspec-core (3.0.4)
       rspec-support (~> 3.0.0)
     rspec-expectations (3.0.4)
