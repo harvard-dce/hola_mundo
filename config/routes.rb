@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resource :video, only: [] do
     member do
-      get 'my', to: :show
+      get 'my', action: :show
     end
   end
 
