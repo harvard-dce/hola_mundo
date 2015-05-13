@@ -160,35 +160,39 @@ describe VideosController do
   end
 
   context '#update' do
-    it 'cannot be accessed by learners' do
-      stub_user
-      video = build(:video, id: 100)
-      allow(video).to receive(:save!)
+    context 'learners' do
+      it 'does not update when a user does not own the video' do
+        stub_user
+        video = build(:video, id: 100)
+        allow(video).to receive(:save!)
 
-      put :update, id: video.id
+        put :update, id: video.id
 
-      expect(video).not_to have_received(:save!)
-      expect(controller).to redirect_to(root_path)
+        expect(video).not_to have_received(:save!)
+        expect(controller).to redirect_to(root_path)
+      end
     end
 
-    it 'can update a video' do
-      user = stub_user
-      course = stub_course
-      allow(course).to receive(:user_has_role?).and_return(true)
-      video = build(:video, approved: false, course: course, id: 1000)
-      allow(video).to receive(:approved=)
-      allow(course).to receive_message_chain(:videos, :find).and_return(video)
+    context 'instructors' do
+      it 'can update a video' do
+        user = stub_user
+        course = stub_course
+        allow(course).to receive(:user_has_role?).and_return(true)
+        video = build(:video, approved: false, course: course, id: 1000)
+        allow(video).to receive(:approved=)
+        allow(course).to receive_message_chain(:videos, :find).and_return(video)
 
-      put :update, id: video.id, approved: true
+        put :update, id: video.id, video: { approved: true }
 
-      expect(video).to have_received(:approved=).with(true)
-      expect(course.videos).to have_received(:find).with(video.id.to_s)
-      expect(flash).to include(['notice', t('videos.updated')])
-      expect(response).to redirect_to(root_path)
-      expect(course).to have_received(:user_has_role?).with(user, 'instructor')
+        expect(video).to have_received(:approved=).with(true)
+        expect(course.videos).to have_received(:find).with(video.id.to_s)
+        expect(flash).to include(['notice', t('videos.updated')])
+        expect(response).to redirect_to(root_path)
+        expect(course).to have_received(:user_has_role?).with(user, 'instructor')
+      end
     end
 
-    it 'redirects to the home page if updating fails' do
+    it 'redirects to the homepage if updating fails' do
       user = stub_user
       course = stub_course
       allow(course).to receive(:user_has_role?).and_return(true)
@@ -200,7 +204,6 @@ describe VideosController do
 
       expect(flash).to include(['error', t('videos.save_failed')])
       expect(response).to redirect_to(root_path)
-      expect(course).to have_received(:user_has_role?).with(user, 'instructor')
     end
   end
 
@@ -208,6 +211,8 @@ describe VideosController do
     it 'uses CourseUserVideoCreator to create a new video for a user' do
       course_id = 1000
       youtube_id = 'abcdefg'
+      description = 'a description'
+      source = 'no_video'
       user = stub_user
       course = build(:course, id: course_id)
       allow(course).to receive(:new_record?).and_return(false)
@@ -215,23 +220,25 @@ describe VideosController do
       allow(Course).to receive(:find_or_initialize_by).and_return(course)
       allow(CourseUserVideoCreator).to receive(:create)
 
-      post :create, { video: { youtube_id: youtube_id } }
+      post :create, { video: { youtube_id: youtube_id, description: description, source: source } }
 
       expect(CourseUserVideoCreator).to have_received(:create).with(
         youtube_id: youtube_id,
         dce_lti_user_id: user.id,
-        course_id: course_id
+        course_id: course_id,
+        description: description,
+        source: source
       )
-      expect(response).to be_successful
+      expect(response).to redirect_to(my_video_path)
     end
 
     it 'returns a logical failure code when creating a video fails' do
       stub_user
       allow(CourseUserVideoCreator).to receive(:create).and_raise
 
-      post :create, { video: {  } }
+      post :create, { video: { source: 'camera', youtube_id: '' } }
 
-      expect(response.status).to eq 422
+      expect(response).to have_rendered(:new)
     end
   end
 

@@ -7,13 +7,17 @@ describe CourseUserVideoCreator do
     described_class.create(
       youtube_id: 'fake',
       dce_lti_user_id: user.id,
-      course_id: course.id
+      course_id: course.id,
+      description: 'first description',
+      source: 'no_video'
     )
 
     described_class.create(
       youtube_id: youtube_id,
       dce_lti_user_id: user.id,
-      course_id: course.id
+      course_id: course.id,
+      description: 'second description',
+      source: 'no_video'
     )
     videos_for_user = Video.by_course_id(course.id).where(dce_lti_user: user.id)
 

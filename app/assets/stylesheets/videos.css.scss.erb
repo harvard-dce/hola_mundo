@@ -25,8 +25,9 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     box-shadow: 2px 2px 5px #bbb;
+    min-height: 270px;
 
-    .youtube_container {
+    .youtube_container, .youtube_modal_container {
       background: no-repeat;
       background-position: center center;
       background-size: cover;
@@ -48,11 +49,27 @@
         width: 60px;
       }
     }
+    .youtube_modal_container {
+      margin: 0px;
+      max-width: 560px;
+      height: 315px;
+    }
+    .short_description {
+      font-size: 1.5em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
+
+  .description {
+    margin-top: 1em;
+  }
+
   .metadata{
     padding-top: 0.4em;
-    float: left;
     font-size: .75em;
+    font-weight: normal;
 
     .date {
       margin-left: .5em;
@@ -93,30 +110,24 @@
 
 .videos-show {
   .video {
-    width: 680px;
     @include span-columns(12);
     @include omega();
-
     .wrapper {
-      width: 676px;
-      .youtube_container {
-        max-width: 640px;
-        height: 390px;
-
-        .play_button {
-          width: auto;
-        }
-      }
+      width: 313px;
     }
   }
 }
 
-.videos-new {
+.videos-new, .videos-create {
   #upload-description-message{
-    width: 500px;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    .contextual-message {
+      margin: 0;
+    }
   }
-  #player {
-    display: none;
+  #preview {
+    visibility: hidden;
     background: no-repeat;
     background-position: center center;
     background-image: url("<%= asset_path('progress.gif') %>");

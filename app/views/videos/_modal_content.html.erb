@@ -1,0 +1,25 @@
+<div class="modal-inner">
+  <label class="modal-close" for="modal-<%= video.id %>"></label>
+  <% if video.youtube_id? %>
+    <div
+      class="youtube_modal_container"
+      id="youtube_modal_container_<%= video.id %>"
+      data-video-container="<%= dom_id(video) %>"
+      data-youtube-id="<%= video.youtube_id %>"
+      style="background-image: url('//img.youtube.com/vi/<%= video.youtube_id %>/hqdefault.jpg')"
+      >
+      <%= image_tag('play_button.png', class: 'play_button') %>
+    </div>
+  <% end %>
+  <% if video.description? %>
+    <div class="description">
+      <%= raw markdown_format(video.description) %>
+    </div>
+  <% end %>
+  <div class="metadata">
+    <%= video.dce_lti_user.lis_person_name_full %>
+    <span class="date">
+      <%= l video.created_at, format: :short_date_time %>
+    </span>
+  </div>
+</div>

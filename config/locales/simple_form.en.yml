@@ -3,6 +3,8 @@ en:
     submit:
       filter_set:
         create: Go
+      video:
+        create: Create Contribution
   simple_form:
     "yes": 'Yes'
     "no": 'No'
@@ -17,10 +19,14 @@ en:
     labels:
       filter_set:
         approved: Approval
+      course:
+        review_required: Require all contributions to be reviewed by an instructor?
     hints:
       defaults:
-        welcome_message: This will appear at the top of the main list of videos.
-        upload_description: A message on the "Upload a new video" page that describes to a student what you think a good video looks like.
+        welcome_message: This will appear at the top of the main list of contributions. Would you like to add formatting to your welcome message? We use Markdown. <a href="//daringfireball.net/projects/markdown/basics" target="_blank">See details here.</a>
+        upload_description: A message on the "Create a new contribution" page that describes to a student what you think a good contribution looks like. Would you like to add formatting? We use Markdown. <a href="//daringfireball.net/projects/markdown/basics" target="_blank">See details here.</a>
+        description: Would you like to add formatting to your description? We use Markdown. <a href="//daringfireball.net/projects/markdown/basics" target="_blank">See details here.</a>
+        review_required: If this is enabled, every time a contribution is created or edited it will have to be approved by an instructor. If you trust your students to behave, you can probably uncheck this box.
     # Examples
     # labels:
     #   defaults:

@@ -1,18 +1,27 @@
-<div class="<%= dom_class(video) %>" id="<%= dom_id(video) %>">
+<div class="modal <%= dom_class(video) %>" id="<%= dom_id(video) %>">
   <div class="wrapper">
-    <div
-      class="youtube_container"
-      id="youtube_container_<%= video.id %>"
-      data-youtube-id="<%= video.youtube_id %>"
-      style="background-image: url('//img.youtube.com/vi/<%= video.youtube_id %>/mqdefault.jpg')"
-      >
-      <%= image_tag('play_button.png', class: 'play_button') %>
-    </div>
-    <div class="metadata">
-      <%= video.dce_lti_user.lis_person_name_full %>
-      <span class="date">
-        <%= l video.created_at, format: :short_date_time %>
-      </span>
+    <label for="modal-<%= video.id %>">
+      <% if video.youtube_id? %>
+        <div
+          class="youtube_container"
+          style="background-image: url('//img.youtube.com/vi/<%= video.youtube_id %>/mqdefault.jpg')"
+          >
+          <%= image_tag('play_button.png', class: 'play_button') %>
+        </div>
+      <% end %>
+      <div class="metadata">
+        <div class="short_description">
+          <%= strip_tags(markdown_format(video.description)).to_s.gsub(/\s+/,' ')[0..50] %> &nbsp;
+        </div>
+        <%= video.dce_lti_user.lis_person_name_full %>
+        <span class="date">
+          <%= l video.created_at, format: :short_date_time %>
+        </span>
+      </div>
+    </label>
+    <input class="modal-state" id="modal-<%= video.id %>" type="checkbox" />
+    <div class="modal-window">
+      <%= render 'modal_content', video: video %>
     </div>
     <div class="controls">
       <% if video.review_required? %>

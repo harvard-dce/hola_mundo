@@ -1,0 +1,11 @@
+<% if (! browser.chrome?) || controller.cookieless_session? %>
+  <div class="flash-notice suboptimal_browser_session">
+    <% if (! browser.chrome?) %>
+      <p><%= t('browser_not_chrome') %></p>
+    <% end %>
+    <% if controller.cookieless_session? %>
+      <p><%= t('cookieless_session_info') %></p>
+    <% end %>
+    <p><%= t('suboptimal_browser_session') %></p>
+  </div>
+<% end %>

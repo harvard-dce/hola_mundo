@@ -1,4 +1,4 @@
-feature 'A user manages upload videos' do
+feature 'A user manages uploaded videos' do
   context 'and has created a video' do
     before do
       course = create(:course)
@@ -13,7 +13,7 @@ feature 'A user manages upload videos' do
       visit '/'
       click_on t('videos.view_my_video')
 
-      expect(page).to have_css('#my_video_player')
+      expect(page).to have_text(t('videos.your_current_video'))
     end
   end
 

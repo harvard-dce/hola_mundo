@@ -1,20 +1,36 @@
 <div class="full-width">
   <div class="upload-widget">
-    <div id="upload_widget" data-course-title="<%= course.title %>"></div>
-    <div id="upload-description-message">
-      <%= raw markdown_format(course.upload_description) %>
-    </div>
-    <p id="uploading_in_progress" class="progress_message" style="display: none;">
-      <%= t('videos.uploading_in_progress') %>
-    </p>
-    <% if @my_video.present? %>
-      <p class="video_present progress_message"><%= t('videos.already_uploaded') %></p>
-    <% end %>
     <% if course.review_required? %>
       <p class="instructor_review_required progress_message"><%= t('videos.review_required') %></p>
     <% end %>
+    <div id="upload-description-message">
+      <%= raw markdown_format(course.upload_description) %>
+    </div>
+    <%= simple_form_for @video do |video| %>
+      <%= video.input :source, label: '', collection: Video::SOURCES, as: :radio_buttons %>
+      <div id="camera" style="display:none;">
+        <%= render 'browser_usage_recommendations' %>
+        <div id="youtube_camera" class="source_info" data-course-title="<%= course.title %>"></div>
+      </div>
+      <p id="uploading_in_progress" class="progress_message" style="display: none;">
+        <%= image_tag('small_progress.gif', align: 'right') %>
+        <%= t('videos.uploading_in_progress') %>
+      </p>
+      <div id="existing" class="source_info" style="display: none;">
+        <%= video.input :existing_youtube_video %>
+      </div>
+      <div id="no_video" class="source_info" style="display: none;">
+        <%= t('videos.sources.no_video_description') %>
+      </div>
+      <%= video.input :description, as: :text %>
+      <%= video.input :youtube_id, as: :hidden %>
+      <div id="submission_error" class="flash-error" style="display:none">
+        <%= t('videos.submission_error') %>
+      </div>
+      <%= video.button :submit %>
+    <% end %>
   </div>
   <div class="upload-player">
-    <div id="player"></div>
+    <div id="preview"></div>
   </div>
 </div>

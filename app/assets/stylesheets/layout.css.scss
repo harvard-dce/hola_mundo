@@ -6,10 +6,17 @@
   @include span-columns(12);
 }
 
-.videos-new .upload-widget, .courses-edit .edit-form{
+.videos-new .upload-widget,
+.videos-create .upload-widget,
+.courses-edit .edit-form{
   @include span-columns(6);
+  padding: 1em;
 }
-.videos-new .upload-player, .courses-edit .preview{
+
+.videos-new .upload-player,
+.videos-create .upload-player,
+.courses-edit .preview{
   @include span-columns(6);
   @include omega();
+  padding: 1em;
 }

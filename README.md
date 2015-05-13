@@ -3,8 +3,10 @@
 ## Overview
 
 This creates a course-level LTI tool that allows your students to introduce
-themselves via videos captured with the [youtube upload widget iframe
-API](https://developers.google.com/youtube/youtube_upload_widget).
+themselves via videos captured with youtube videos capture from their webcam
+(via the [youtube upload widget iframe
+API](https://developers.google.com/youtube/youtube_upload_widget)), with
+existing youtube videos or with text only.
 
 It includes:
 
@@ -71,14 +73,19 @@ variables of note:
 * COURSE_NAV_TITLE: The title in the course navigation bar. The default is "Say
   Hello!".
 
-You should be sure to clean up nonces with cron via the [dce_lti supplied rake
-task](https://github.com/harvard-dce/dce_lti#nonce-cleanup).
+You should be sure to clean up nonces and sessions with cron via the dce_lti supplied rake
+tasks -
+[dce_lti::clean_nonces](https://github.com/harvard-dce/dce_lti#nonce-cleanup)
+and
+[dce_lti::clean_sessions](https://github.com/harvard-dce/dce_lti#database-session-cleanup).
 
 ## Known issues
 
-* This app relies on cookie-based sessions, which are rejected by default in
-  the Safari browser as they are set in an iframe and considered to be "third
-  party cookies." We're thinking through a `dce_lti` gem level fix.
+* This application uses the experimental "cookieless sessions" provided by the
+  DceLti sessioning gem.
+* Video uploads DO NOT WORK if third party cookies are disabled - this is
+  because the youtube API requires third-party cookies. Viewing videos,
+  creating introductions, updating course settings, etc. all work normally.
 * The youtube webcam API requires that a user has a google account and has set
   up a youtube account. First time setup is a bit wonky, but it's out of our
   control.

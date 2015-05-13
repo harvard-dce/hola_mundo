@@ -1,8 +1,6 @@
 <div class="full-width">
-  <% if @my_video.present? %>
+  <% if @my_video.persisted? %>
     <h3><%= t('videos.your_current_video') %></h3>
-    <div id="my_video_player">
-    </div>
     <p><%= t('videos.resubmit') %></p>
     <%= render @my_video %>
   <% else %>

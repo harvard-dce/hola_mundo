@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "2.1.5"
 
 gem "bourbon", "~> 3.2.1"
+gem 'refills'
 gem "coffee-rails"
 gem "delayed_job_active_record"
 gem "email_validator"
@@ -23,8 +24,9 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
-gem "dce_lti", "~> 0.5.0"
+gem "dce_lti", '~> 0.5.2'
 gem 'activerecord-session_store', '~> 0.1.1'
+gem 'browser', '~> 0.8.0'
 
 group :development do
   gem 'quiet_assets'

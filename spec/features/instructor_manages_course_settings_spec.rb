@@ -9,15 +9,15 @@ feature 'An instructor manages a course' do
     visit '/'
 
     click_on t('courses.settings')
-    uncheck('Review required')
+    uncheck 'course_review_required'
     click_on('Update Course')
 
-    expect(page).to have_no_checked_field('Review required')
+    expect(page).to have_no_checked_field('course_review_required')
 
-    check('Review required')
+    check('course_review_required')
     click_on('Update Course')
 
-    expect(page).to have_checked_field('Review required')
+    expect(page).to have_checked_field('course_review_required')
   end
 
   scenario 'and can set contextual language that appears in the interface' do
@@ -28,11 +28,11 @@ feature 'An instructor manages a course' do
     fill_in 'Upload description', with: 'Hi. do *this* to upload a thing'
     click_on('Update Course')
 
-    click_on 'Upload a new video'
+    click_on t('videos.new')
 
     expect(page).to have_css('em', text: 'this')
 
-    click_on 'Videos'
+    click_on 'All Contributions'
 
     expect(page).to have_content('A sweet welcome message')
   end

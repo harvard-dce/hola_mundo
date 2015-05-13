@@ -19,45 +19,54 @@ en:
 
   titles:
     application: Hola mundo
-    homepage: Videos
+    homepage: All Contributions
     courses:
       edit: Edit course settings
     videos:
-      index: Video list
-      show: My video
-      new: Upload a new video
+      index: Contributions
+      show: My Contribution
+      new: Create a new contribution
+
+  cookieless_session_info: To upload a video using your webcam you must have 3rd party cookies enabled. Either enable third party cookies or try a different browser.
+  browser_not_chrome: We strongly recommend the Chrome browser if you're uploading a video using your webcam.  If your first upload attempt fails, try again and it should work. If it doesn't, please try a different browser.
+  suboptimal_browser_session: Existing YouTube video and non-video contributions should work fine, however.
 
   videos:
-    already_uploaded: You've already uploaded a video - you can see it under "My video", or re-record one here.
+    submission_error: Please select "No video" if you don't want to post a video
     approval_state_false: under review
     approval_state_true: approved
-    approve: Approve video
-    confirm_destroy: This will remove this video permanently from this course. Are you sure?
+    approve: Approve contribution
+    confirm_destroy: This will remove this contribution permanently from this course. Are you sure?
     destroy: Delete
-    destroyed: Removed that video.
+    destroyed: Removed that contribution.
     disapprove: Not approved
     filter_by: 'Filter by:'
-    new: Upload a new video
-    none_uploaded_yet: You've not uploaded a video yet! Click "Upload a new video"
-    resubmit: You can submit a new video via the "Upload a new video" link.
-    review_not_required_but_none_yet: No videos yet. Why not record one? Click "Upload a new video"
-    review_required: Any videos you upload will require approval by an instructor.
-    review_required_but_none_yet: No videos approved yet. Why not record one? Click "Upload a new video"
-    save_failed: Oops. We couldn't save that video. Please try again later!
+    new: Create a new contribution
+    none_uploaded_yet: You've not uploaded an contribution yet! Click "Create a new contribution"
+    resubmit: You can submit a new video for your contribution via the "Create a new contribution" link.
+    review_not_required_but_none_yet: No contributions yet. Why not make one? Click "Create a new contribution"
+    review_required: Your contribution will require approval by an instructor every time you edit it.
+    review_required_but_none_yet: No contributions approved yet. Why not record one? Click "Create a new contribution"
+    save_failed: Oops. We couldn't save that contribution. Please try again later!
+    sources:
+      no_video: No video
+      camera: From my webcam
+      existing: An existing youtube video
+      no_video_description: I don't want to post a video right now.
     options:
       approval_state:
         'approved': 'Approved'
         'not_approved': 'Not Approved'
-        'all_videos': '- All Videos -'
+        'all_videos': '- All Contributions -'
       sort_by:
         'updated_at_desc': Newest to oldest
         'updated_at_asc': Oldest to newest
         'name_asc': Name, a-z
         'name_desc': Name, z-a
-    updated: Updated that video
-    uploading_in_progress: Your video is being uploaded and processed. Please don't close this window.
-    view_my_video: My video
-    your_current_video: Your currently submitted video
+    updated: Updated that contribution
+    uploading_in_progress: Your contribution is being uploaded and processed. Please don't close this window.
+    view_my_video: My contribution
+    your_current_video: Your currently submitted contribution
 
   courses:
     preview: Course message previews
@@ -65,5 +74,4 @@ en:
     updated: Updated the course settings
     welcome_message: Welcome Message
     upload_description: Upload description
-    markdown_info: The welcome message and description both accept most markdown formatting. Details here.
     save_failed: Oops. We couldn't save that course. Please look below for errors.

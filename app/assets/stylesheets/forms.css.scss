@@ -11,6 +11,14 @@ form{
     font-weight: bold;
     padding-left: 1em;
   }
+  textarea#video_description {
+    height: 15em;
+  }
+  .source_info {
+    margin: 0.5em;
+  }
+
+  input[type="submit"] {
+    margin-bottom: 1em;
+  }
 }
-
-

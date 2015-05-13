@@ -42,7 +42,7 @@ describe 'Filtering and sorting videos' do
           expect(page).to have_css("#video_#{video.id}")
         end
 
-        select('- All Videos -', from: 'Approval')
+        select('- All Contributions -', from: 'Approval')
         click_on 'Go'
 
         @approved_videos.each do |video|

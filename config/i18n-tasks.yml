@@ -14,3 +14,4 @@ ignore_unused:
   - videos.approval_state_*
   - videos.*but_none_yet
   - videos.options*
+  - videos.sources*

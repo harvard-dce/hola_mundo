@@ -1,4 +1,12 @@
 class Video < ActiveRecord::Base
+  SOURCES = {
+    I18n.t('videos.sources.camera') => 'camera',
+    I18n.t('videos.sources.existing') => 'existing',
+    I18n.t('videos.sources.no_video') => 'no_video',
+  }
+
+  attr_writer :existing_youtube_video
+
   before_create :ensure_review_is_required
 
   belongs_to :dce_lti_user, class: DceLti::User
@@ -9,13 +17,21 @@ class Video < ActiveRecord::Base
     uniqueness: { scope: :course_id }
 
   validates :youtube_id,
-    presence: true,
     length: { maximum: 20 }
 
   validates :course_id,
     presence: true
 
+  validates :description,
+    length: { maximum: 2.kilobytes }
+
   delegate :review_required?, to: :course
+
+  def existing_youtube_video
+    if youtube_id.present? && source == 'existing'
+      %Q|https://www.youtube.com/watch?v=#{youtube_id}|
+    end
+  end
 
   def self.approved
     where(approved: true)
