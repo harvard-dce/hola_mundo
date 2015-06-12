@@ -58,8 +58,7 @@ DceLti::Engine.setup do |lti|
       url: tool_config.launch_url,
       text: menu_item,
       visibility: 'members',
-      default: 'members',
-      enabled: true
+      default: 'disabled'
     )
   end
 end
