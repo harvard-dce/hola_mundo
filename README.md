@@ -3,8 +3,8 @@
 ## Overview
 
 This creates a course-level LTI tool that allows your students to introduce
-themselves via videos captured with youtube videos capture from their webcam
-(via the [youtube upload widget iframe
+themselves via videos captured from their webcam (via the [youtube upload
+widget iframe
 API](https://developers.google.com/youtube/youtube_upload_widget)), with
 existing youtube videos or with text only.
 
@@ -25,12 +25,12 @@ It's built to be deployed to heroku but should be easily deployed elsewhere.
 
 ## Prerequisites:
 
-* A POSIX dev environment,
-* ruby 2.1.5 - but any 2.1.x release should work great,
-* [foreman](https://github.com/ddollar/foreman) - not strictly necessary but
+* **development** A POSIX dev environment,
+* **development** [foreman](https://github.com/ddollar/foreman) - not strictly necessary but
   it makes development easier,
+* ruby 2.1.5 - but any 2.1.x release should work great,
 * a postgres database,
-* *Manual acceptance testing only*: A working LTI application consumer, most
+* **Manual acceptance testing only**: A working LTI application consumer, most
   likely [canvas](https://github.com/instructure/canvas-lms).
 
 ## Getting Started
