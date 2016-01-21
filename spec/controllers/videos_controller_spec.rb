@@ -236,7 +236,7 @@ describe VideosController do
       stub_user
       allow(CourseUserVideoCreator).to receive(:create).and_raise
 
-      post :create, { video: { source: 'camera', youtube_id: '' } }
+      post :create, { video: { source: 'existing', youtube_id: '' } }
 
       expect(response).to have_rendered(:new)
     end

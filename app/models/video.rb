@@ -1,6 +1,5 @@
 class Video < ActiveRecord::Base
   SOURCES = {
-    I18n.t('videos.sources.camera') => 'camera',
     I18n.t('videos.sources.existing') => 'existing',
     I18n.t('videos.sources.no_video') => 'no_video',
   }

@@ -3,17 +3,18 @@
 ## Overview
 
 This creates a course-level LTI tool that allows your students to introduce
-themselves via videos captured from their webcam (via the [youtube upload
-widget iframe
-API](https://developers.google.com/youtube/youtube_upload_widget)), with
-existing youtube videos or with text only.
+themselves via youtube videos or with text only.
+
+Previously these could've been captured from their webcam (via the [youtube
+upload widget iframe
+API](https://developers.google.com/youtube/youtube_upload_widget)), but google
+deprecated and removed that API 1/16/2016.
 
 It includes:
 
 * Instructor controls - including video pre-approval and removal,
 * A responsive design,
-* Basic filter support - name, date, and approval status (where appropriate),
-* Video uploads to youtube with the "unlisted" privacy level set.
+* Basic filter support - name, date, and approval status (where appropriate).
 
 It's built to work with the [canvas
 lms](https://github.com/instructure/canvas-lms) but would probably work with
@@ -28,7 +29,7 @@ It's built to be deployed to heroku but should be easily deployed elsewhere.
 * **development** A POSIX dev environment,
 * **development** [foreman](https://github.com/ddollar/foreman) - not strictly necessary but
   it makes development easier,
-* ruby 2.1.5 - but any 2.1.x release should work great,
+* ruby 2.2.4 - but ruby > 2.1.x should work great,
 * a postgres database,
 * **Manual acceptance testing only**: A working LTI application consumer, most
   likely [canvas](https://github.com/instructure/canvas-lms).
@@ -83,12 +84,6 @@ and
 
 * This application uses the experimental "cookieless sessions" provided by the
   DceLti sessioning gem.
-* Video uploads DO NOT WORK if third party cookies are disabled - this is
-  because the youtube API requires third-party cookies. Viewing videos,
-  creating introductions, updating course settings, etc. all work normally.
-* The youtube webcam API requires that a user has a google account and has set
-  up a youtube account. First time setup is a bit wonky, but it's out of our
-  control.
 
 ## Contributing or reporting problems
 

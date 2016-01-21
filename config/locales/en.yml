@@ -27,10 +27,6 @@ en:
       show: My Contribution
       new: Create a new contribution
 
-  cookieless_session_info: To upload a video using your webcam you must have 3rd party cookies enabled. Either enable third party cookies or try a different browser.
-  browser_not_chrome: We strongly recommend the Chrome browser if you're uploading a video using your webcam.  If your first upload attempt fails, try again and it should work. If it doesn't, please try a different browser.
-  suboptimal_browser_session: Existing YouTube video and non-video contributions should work fine, however.
-
   videos:
     submission_error: Please select "No video" if you don't want to post a video
     approval_state_false: under review
@@ -50,9 +46,9 @@ en:
     save_failed: Oops. We couldn't save that contribution. Please try again later!
     sources:
       no_video: No video
-      camera: From my webcam
       existing: An existing youtube video
       no_video_description: I don't want to post a video right now.
+      get_help_uploading: How to capture and upload a video to youtube
     options:
       approval_state:
         'approved': 'Approved'

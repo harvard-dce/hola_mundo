@@ -8,16 +8,13 @@
     </div>
     <%= simple_form_for @video do |video| %>
       <%= video.input :source, label: '', collection: Video::SOURCES, as: :radio_buttons %>
-      <div id="camera" style="display:none;">
-        <%= render 'browser_usage_recommendations' %>
-        <div id="youtube_camera" class="source_info" data-course-title="<%= course.title %>"></div>
-      </div>
       <p id="uploading_in_progress" class="progress_message" style="display: none;">
         <%= image_tag('small_progress.gif', align: 'right') %>
         <%= t('videos.uploading_in_progress') %>
       </p>
       <div id="existing" class="source_info" style="display: none;">
         <%= video.input :existing_youtube_video %>
+        <div class="hint"><%= link_to(t('videos.sources.get_help_uploading'), '//support.google.com/youtube/answer/57407', target: :blank) %></div>
       </div>
       <div id="no_video" class="source_info" style="display: none;">
         <%= t('videos.sources.no_video_description') %>

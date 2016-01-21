@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518185046) do
+ActiveRecord::Schema.define(version: 20160121175700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20150518185046) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "sessions", force: :cascade do |t|
-    t.string   "session_id", limit: 255, null: false
+    t.string   "session_id", null: false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20150518185046) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description",     limit: 2048
-    t.string   "source",                       default: "camera"
+    t.string   "source",                       default: "existing"
   end
 
   add_index "videos", ["course_id", "dce_lti_user_id"], name: "index_videos_on_course_id_and_dce_lti_user_id", unique: true, using: :btree
