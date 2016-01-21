@@ -35,6 +35,5 @@ Rails.application.configure do
   # Raises error for missing translations
   config.action_view.raise_on_missing_translations = true
 
-  Rack::Timeout::StageChangeLoggingObserver.logger = Logger.new('/dev/null')
   config.action_mailer.default_url_options = { host: 'localhost:9000' }
 end

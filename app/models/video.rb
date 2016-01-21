@@ -9,7 +9,7 @@ class Video < ActiveRecord::Base
 
   before_create :ensure_review_is_required
 
-  belongs_to :dce_lti_user, class: DceLti::User
+  belongs_to :dce_lti_user, class_name: DceLti::User
   belongs_to :course
 
   validates :dce_lti_user_id,

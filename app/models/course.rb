@@ -4,7 +4,7 @@ class Course < ActiveRecord::Base
   has_many :course_roles,
     dependent: :destroy
   has_many :dce_lti_users,
-    through: :course_roles, class: DceLti::User
+    through: :course_roles, class_name: DceLti::User
 
   validates :resource_link_id,
     length: { maximum: 255 },

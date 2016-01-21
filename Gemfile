@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.1.5"
+ruby "2.2.4"
 
 gem "bourbon", "~> 3.2.1"
 gem 'refills'
@@ -47,7 +47,7 @@ group :test do
   gem "capybara-webkit", ">= 1.2.0"
   gem "database_cleaner"
   gem "launchy"
-  gem "shoulda-matchers", require: false
+  gem "shoulda-matchers", "~> 2.8.0", require: false
   gem "timecop"
   gem "webmock"
   gem "simplecov", require: false
