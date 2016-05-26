@@ -15,7 +15,7 @@ gem "neat", "~> 1.5.1"
 gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "rack-timeout"
-gem "rails", "~> 4.2.5.1"
+gem "rails", "~> 4.2.6"
 gem 'responders', '~> 2.0'
 gem 'redcarpet'
 gem "recipient_interceptor"
@@ -40,7 +40,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "factory_girl_rails"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.1.0"
+  gem "rspec-rails", "~> 3.4.0"
 end
 
 group :test do
