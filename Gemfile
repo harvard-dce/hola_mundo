@@ -24,8 +24,8 @@ gem "simple_form"
 gem "title"
 gem "uglifier"
 gem "unicorn"
-gem "dce_lti", '~> 0.5.2'
-gem 'activerecord-session_store', '~> 0.1.1'
+gem "dce_lti", '~> 0.6.0'
+gem 'activerecord-session_store', '~> 1.0.0'
 gem 'browser', '~> 0.8.0'
 
 group :development do
