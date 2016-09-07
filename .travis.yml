@@ -7,6 +7,8 @@ before_script:
   - cp .sample.env .env
   
   - psql -c 'create database "hola_mundo_test";' -U postgres
+
+  - bin/rake db:migrate RAILS_ENV=test
   
 cache:
   - bundler

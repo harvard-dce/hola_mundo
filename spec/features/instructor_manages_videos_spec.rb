@@ -1,6 +1,6 @@
 feature 'An instructor manages a video' do
   before do
-    @course = create(:course, resource_link_id: 'a resource_link_id')
+    @course = create(:course, resource_link_id: 'a resource_link_id', review_required: true)
     ENV['FAKE_USER_ID'] = create(:dce_lti_user).id.to_s
     page.set_rack_session(roles: ['instructor'])
     page.set_rack_session(resource_link_id: @course.resource_link_id)

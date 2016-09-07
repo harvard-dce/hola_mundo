@@ -27,7 +27,7 @@ feature 'A user manages uploaded videos' do
     scenario 'then they are prompted to create a video' do
       visit '/'
 
-      expect(page).to have_content(t('videos.review_required_but_none_yet'))
+      expect(page).to have_content(t('videos.review_not_required_but_none_yet'))
     end
 
     scenario 'they can create a video' do

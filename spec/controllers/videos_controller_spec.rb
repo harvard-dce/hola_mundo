@@ -177,6 +177,7 @@ describe VideosController do
       it 'can update a video' do
         user = stub_user
         course = stub_course
+        course.review_required = true
         allow(course).to receive(:user_has_role?).and_return(true)
         video = build(:video, approved: false, course: course, id: 1000)
         allow(video).to receive(:approved=)

@@ -15,8 +15,8 @@ describe Course do
 
 
   context 'review_required' do
-    it 'is true by default' do
-      expect(described_class.new.review_required).to be true
+    it 'is false by default' do
+      expect(described_class.new.review_required).to be false
     end
   end
 end

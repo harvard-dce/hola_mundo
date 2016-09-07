@@ -1,5 +1,6 @@
 describe 'videos/_video.html.erb' do
   include ViewAuthHelpers
+  include LtiControllerHelpers
 
   context 'displays meaningful info about approval state' do
     before do
@@ -8,7 +9,10 @@ describe 'videos/_video.html.erb' do
     end
 
     it 'when false' do
-      video = build(:video, approved: false, id: 10)
+      course = stub_course
+      course.review_required = true
+
+      video = build(:video, approved: false, course: course, id: 10)
 
       render 'videos/video', video: video
 
@@ -17,7 +21,10 @@ describe 'videos/_video.html.erb' do
     end
 
     it 'when true' do
-      video = build(:video, approved: true, id: 10)
+      course = stub_course
+      course.review_required = true
+
+      video = build(:video, approved: true, course: course, id: 10)
 
       render 'videos/video', video: video
 

@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20160121175700) do
   create_table "courses", force: :cascade do |t|
     t.string   "title",              limit: 255
     t.string   "resource_link_id",   limit: 255
-    t.boolean  "review_required",                 default: true
+    t.boolean  "review_required",                 default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "upload_description", limit: 2048
