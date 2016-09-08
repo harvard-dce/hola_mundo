@@ -15,7 +15,7 @@ gem "neat", "~> 1.5.1"
 gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "rack-timeout"
-gem "rails", "~> 4.2.6"
+gem "rails", "~> 4.2.7"
 gem 'responders', '~> 2.0'
 gem 'redcarpet'
 gem "recipient_interceptor"
